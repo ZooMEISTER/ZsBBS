@@ -48,8 +48,9 @@ public class UserController {
     //http://localhost:8088/user/register
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public LoginResult userRegister(User user){
-        System.out.println("username: " + user.getUsername());
-        System.out.println("password: " + user.getPassword());
+//        System.out.println("username: " + user.getUsername());
+//        System.out.println("password: " + user.getPassword());
+//        System.out.println("description: " + user.getDescription());
         List<User> userList = userService.queryAllUser();
         for(int i = 0;i < userList.size();++i){
             if(userList.get(i).getUsername().equals(user.getUsername())){
@@ -61,8 +62,11 @@ public class UserController {
         String md5Password = SecureUtil.md5(user.getPassword() + MD5_SALT);
         user.setPassword(md5Password);
 
+        //用户注册时的默认简介
+        user.setDescription("这个人很懒，没有简介");
+
         int insertUserRes = userService.insertUser(user);
-        System.out.println(user.getUserid());
+        //System.out.println(user.getUserid());
         String token = JWTUtils.generateToken(user.getUserid());
         return LoginResult.ok().data("userid", user.getUserid()).data("usertype", 0).data("token", token);
     }
@@ -71,8 +75,11 @@ public class UserController {
     //用户登录
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public LoginResult userLogin(User user){
-        System.out.println("username: " + user.getUsername());
-        System.out.println("password: " + user.getPassword());
+//        System.out.println("username: " + user.getUsername());
+//        System.out.println("password: " + user.getPassword());
+//        System.out.println("description: --------------------------------------------------------------------------------------");
+//        System.out.println("description: " + user.getDescription());
+//        System.out.println("description: --------------------------------------------------------------------------------------");
         List<User> userList = userService.queryAllUser();
 
         //对传进来的用户密码进行加密
@@ -90,6 +97,7 @@ public class UserController {
                             .data("usertype", userList.get(i).getUsertype())
                             .data("userpostcount", userList.get(i).getUserpostcount())
                             .data("userreplycount", userList.get(i).getUserreplycount())
+                            .data("description", userList.get(i).getDescription())
                             .data("token", token);
                 }
                 else {
@@ -107,13 +115,13 @@ public class UserController {
     public LoginResult userAutoLogin(@RequestParam("token") String token){
         try{
             Claims claims = JWTUtils.getClaimsByToken(token);
-            System.out.println("TOKEN: " + claims);
+            //System.out.println("TOKEN: " + claims);
 
             Date now = new Date();
 
-            System.out.println("SUB: " + Long.parseLong((String) claims.get("sub")));
-            System.out.println("EXP: " + Long.parseLong(claims.get("exp").toString()));
-            System.out.println("NOW: " + now.getTime());
+//            System.out.println("SUB: " + Long.parseLong((String) claims.get("sub")));
+//            System.out.println("EXP: " + Long.parseLong(claims.get("exp").toString()));
+//            System.out.println("NOW: " + now.getTime());
 
             if(Long.parseLong(claims.get("exp").toString()) * 1000 <= now.getTime()){
                 //token已过期
@@ -134,6 +142,7 @@ public class UserController {
                                 .data("password", userList.get(i).getPassword())
                                 .data("userpostcount", userList.get(i).getUserpostcount())
                                 .data("userreplycount", userList.get(i).getUserreplycount())
+                                .data("description", userList.get(i).getDescription())
                                 .data("token", _token);
 
                     }
@@ -151,8 +160,8 @@ public class UserController {
     //更新头像
     @RequestMapping(value = "/update/avatar", method = RequestMethod.POST)
     public int userChangeAvatar(@RequestParam("userid") int userid, @RequestParam("avatar") String avatar){
-        System.out.println(userid);
-        System.out.println(avatar);
+        //System.out.println(userid);
+        //System.out.println(avatar);
 
         if(userService.updateAvatarByUserid(userid, avatar) == 1){
             return UserResultCode.UPDATE_SECCESS;
@@ -165,8 +174,8 @@ public class UserController {
     //更新用户名
     @RequestMapping(value = "/update/username", method = RequestMethod.POST)
     public int userChangeUsername(@RequestParam("userid") int userid, @RequestParam("username") String username){
-        System.out.println(userid);
-        System.out.println(username);
+        //System.out.println(userid);
+        //System.out.println(username);
 
         List<User> userList = userService.queryAllUser();
         for(int i = 0;i < userList.size();++i){
@@ -187,8 +196,8 @@ public class UserController {
     //更新密码
     @RequestMapping(value = "/update/password", method = RequestMethod.POST)
     public int userChangePassword(@RequestParam("userid") int userid, @RequestParam("password") String password){
-        System.out.println(userid);
-        System.out.println(password);
+        //System.out.println(userid);
+        //System.out.println(password);
 
         //对用户密码进行加密
         String md5Password = SecureUtil.md5(password + MD5_SALT);
@@ -199,5 +208,21 @@ public class UserController {
         else{
             return UserResultCode.UPDATE_FAIL;
         }
+    }
+
+    //更新用户名
+    @RequestMapping(value = "/update/description", method = RequestMethod.POST)
+    public int userChangeDecription(@RequestParam("userid") int userid, @RequestParam("description") String description){
+        //System.out.println(userid);
+        //System.out.println(description);
+
+
+        if(userService.updateDescriptionByUserid(userid, description) == 1){
+            return UserResultCode.UPDATE_SECCESS;
+        }
+        else {
+            return UserResultCode.UPDATE_FAIL;
+        }
+
     }
 }

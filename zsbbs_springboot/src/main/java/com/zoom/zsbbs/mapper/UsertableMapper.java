@@ -30,6 +30,9 @@ public interface UsertableMapper extends BaseMapper<User> {
     @Update("UPDATE sys_usertable SET password = #{password} WHERE userid = #{userid}")
     public int updatePasswordByUserid(int userid, String password);
 
-    @Select("SELECT username, avatar FROM sys_usertable WHERE userid = #{userid}")
+    @Update("UPDATE sys_usertable SET description = #{description} WHERE userid = #{userid}")
+    public int updateDescriptionByUserid(int userid, String description);
+
+    @Select("SELECT * FROM sys_usertable WHERE userid = #{userid}")
     public PostAuthor queryAuthorByUserid(int userid);
 }

@@ -3,8 +3,10 @@ package com.zoom.zsbbs.service.impl;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.zoom.zsbbs.entity.Bookmark;
 import com.zoom.zsbbs.entity.Post;
 import com.zoom.zsbbs.entity.Reply;
+import com.zoom.zsbbs.mapper.BookmarkMapper;
 import com.zoom.zsbbs.mapper.PostMapper;
 import com.zoom.zsbbs.mapper.ReplyMapper;
 import com.zoom.zsbbs.param.PostResult;
@@ -26,6 +28,9 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private PostMapper postMapper;
 
+    @Autowired
+    private BookmarkMapper bookmarkMapper;
+
     @Override
     public int getAllPostCount() {
         return postMapper.getAllPostCount();
@@ -45,8 +50,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> searchPost(String searchby) {
-        return postMapper.searchPost(searchby);
+    public List<Post> searchPost(String searchby, int pagenum, int pagesize) {
+        int startnum = (pagenum - 1) * pagesize;
+        return postMapper.searchPost(searchby, startnum, pagesize);
     }
 
     @Override
@@ -191,5 +197,33 @@ public class PostServiceImpl implements PostService {
         return PostResult.ok();
     }
 
+    @Override
+    public boolean queryIsThisPostBookmarkedUserid(int postid, int userid) {
+        if(bookmarkMapper.queryIsThisPostBookmarkedUserid(postid, userid) >= 1){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int addBookmark(Bookmark bookmark) {
+        return bookmarkMapper.insert(bookmark);
+    }
+
+    @Override
+    public int delBookmark(int postid, int userid) {
+        return bookmarkMapper.delBookmark(postid, userid);
+    }
+
+    @Override
+    public int getAllBookmarkedPostCountByUserid(int userid) {
+        return bookmarkMapper.getAllBookmarkedPostCountByUserid(userid);
+    }
+
+    @Override
+    public List<Bookmark> queryAllBookmarkedPostByUserid(int userid, int pagenum, int pagesize) {
+        int startnum = (pagenum - 1) * pagesize;
+        return bookmarkMapper.queryAllBookmarkedPostByUserid(userid, startnum, pagesize);
+    }
 
 }

@@ -57,6 +57,7 @@ export default {
             password: "",
             userpostcount: 0,
             userreplycount: 0,
+            description: "这个人很懒，没有简介",
             token: "",
         }
     },
@@ -71,6 +72,7 @@ export default {
                 password: this.password,
                 userpostcount: this.userpostcount,
                 userreplycount: this.userreplycount,
+                description: this.description,
             })
 
             //将返回的token写入到cookie
@@ -90,6 +92,7 @@ export default {
             registerParam.append("avatar", this.avatar)
             registerParam.append("username", this.username)
             registerParam.append("password", this.password)
+            registerParam.append("description", this.description)
             var _this = this
 
             var zg_u =  /^[0-9a-zA-Z]*$/;

@@ -1,4 +1,5 @@
-<template>
+<template >
+    
     <div>
         <!-- <h1>主页</h1> -->
         <!-- <div>{{this.$store.state.s_token}}</div> -->
@@ -29,7 +30,6 @@
                         登录使用 JWT 方案 <br>
                         <br>
                         [ 若出现bug，请刷新页面 :) ] <br>
-                        [ 做的真丑啊 ] <br>
                     </text>
                 </div>
             </div>
@@ -37,8 +37,6 @@
         </el-card>
         
     </div>
-
-
 </template>
 
 <script>
@@ -62,6 +60,11 @@ export default {
 </script>
 
 <style>
+::-webkit-scrollbar {
+    width: 1; 
+    height: 3;
+}
+
 .welcomeCard{
     width: 60%;
     height: 700px;

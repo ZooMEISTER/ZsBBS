@@ -34,12 +34,14 @@
 			<div v-else-if="p_usertype === 0">
 				<el-menu-item index="/zsbbs/me/profile">个人资料</el-menu-item>
 				<el-menu-item index="/zsbbs/me/post">我的帖子</el-menu-item>
+				<el-menu-item index="/zsbbs/me/bookmark">我的收藏</el-menu-item>
 				<el-menu-item index="/zsbbs/me/reply/myreply">我的回复</el-menu-item>
 				<el-menu-item @click="logoutMethod">登出</el-menu-item>
 			</div>
 			<div v-else-if="p_usertype === 1">
 				<el-menu-item index="/zsbbs/me/profile">个人资料</el-menu-item>
 				<el-menu-item index="/zsbbs/me/post">我的帖子</el-menu-item>
+				<el-menu-item index="/zsbbs/me/bookmark">我的收藏</el-menu-item>
 				<el-menu-item index="/zsbbs/me/reply/myreply">我的回复</el-menu-item>
 				<el-menu-item @click="logoutMethod">登出</el-menu-item>
 			</div>

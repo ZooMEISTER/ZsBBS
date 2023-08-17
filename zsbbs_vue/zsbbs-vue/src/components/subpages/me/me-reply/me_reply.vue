@@ -4,7 +4,7 @@
         <h1>My Reply</h1>
     </div> -->
 
-    <div style="height: 50px;"/>
+    <div style="height: 30px;"/>
 
     <el-radio-group v-model="selectedReply" size="large" @change="changeReplyDisplay">
       <el-radio-button label="我的回复"/>

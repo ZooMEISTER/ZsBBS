@@ -18,9 +18,9 @@
                 <!-- 发帖人信息 -->
                 <div style="display: flex; flex-direction: column;width: 10%;">
                     <el-avatar :size="100" :src="authoravatar" style="align-self: center;"/>
-                    <div style="height: 10px"/>
-                    <el-text type="primary" style="width: 100%;">{{authorname}}</el-text>
-                    <div style="height: 10px"/>
+                    <div style="height: 15px"/>
+                    <el-link type="primary" style="width: 100%; font-size: 25px;" @click="showUserInfo">{{authorname}}</el-link>
+                    <div style="height: 15px"/>
                     <el-tag style="width: 50%; align-self: center;"> 楼主 </el-tag>
                     <div style="height: 5px"/>
                     <el-tag v-if="this.$store.state.s_userid == authorid" type="success" style="width: 50%; align-self: center"> 我 </el-tag>
@@ -48,6 +48,8 @@
                     <!-- 次要信息 -->
                     <div style="align-self: flex-end;">
                         <el-button v-if="authorid == this.$store.state.s_userid" type="danger" @click="deletePost" plain>删除</el-button>
+                        <el-button v-else-if="!this.isPostBookmarked" type="primary" @click="bookmarkPost" plain>收藏</el-button>
+                        <el-button v-else type="primary" @click="bookmarkPost" plain>取消收藏</el-button>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <el-text style="font-size: 10px; text-align:left; margin:left; align-self:flex-end;">
                             回复数:
@@ -155,12 +157,17 @@
 
     <!-- 回到顶部按钮 -->
     <el-backtop :right="200" :bottom="200" />
+
+    <!-- 用户信息弹窗 -->
+    <Comp_UserInfoForm v-if="showUserInfoForm" ref="uIF" :p_targetuserid="authorid"></Comp_UserInfoForm>
 </template>
 
 <script>
 import axios from 'axios'
 import Comp_SingleReply from "./reply.vue"
+import Comp_UserInfoForm from "../../user_info_form.vue"
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { faL } from '@fortawesome/free-solid-svg-icons'
 
 export default {
     created(){
@@ -171,7 +178,8 @@ export default {
         this.getAllReply()
     },
     components:{
-        Comp_SingleReply
+        Comp_SingleReply,
+        Comp_UserInfoForm,
     },
     data(){
         return{
@@ -186,6 +194,9 @@ export default {
             containimage: 0,
             allReply: [],
             allImage: [],
+
+            //表示该帖子是否被当前登录的用户收藏
+            isPostBookmarked: false,
 
             dialog_addNewReply_v: false,
             newReplyContent: "",
@@ -202,6 +213,8 @@ export default {
 
             dialogVisible: false,
             dialogImageUrl: "",
+
+            showUserInfoForm: false,
         }
     },
     methods:{
@@ -262,6 +275,38 @@ export default {
             .catch(function (error) {
                 console.log(error);
             });
+
+
+            //在这里判断帖子是否被当前登录的用户收藏
+            //发送对帖子收藏表的查询请求
+            //帖子id（postid） 当前登录用户id（this.$store.state.s_userid） 
+            //先判断是否登录
+            if(this.$store.state.s_userid > 0){
+                var queryBookmarkParam = new URLSearchParams
+
+                queryBookmarkParam.append("postid", this.postid)
+                queryBookmarkParam.append("userid", this.$store.state.s_userid)
+                var _this = this
+
+                axios.post('/post/query/isthisbookmarked', 
+                    queryBookmarkParam
+                )
+                .then(function (response) {
+                    if(response.data == true){
+                        _this.isPostBookmarked = true
+                    }
+                    else{
+                        _this.isPostBookmarked = false
+                    }
+
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            }
+            
+
 
 
 
@@ -466,6 +511,69 @@ export default {
                 this.$message.error("没有权限")
             }
         },
+        //收藏或取消收藏帖子
+        bookmarkPost(){
+            if(this.$store.state.s_userid > 0){
+                if(this.isPostBookmarked){
+                    //console.log("取消收藏")
+                    //发送取消收藏请求
+                    var delBookmarkParam = new URLSearchParams
+                    delBookmarkParam.append("bookmarkpostid", this.postid)
+                    delBookmarkParam.append("bookmarkposttitle", this.title)
+                    delBookmarkParam.append("bookmarkpostcontent", this.content)
+                    delBookmarkParam.append("bookmarkpostauthorid", this.authorid)
+                    delBookmarkParam.append("bookmarkby", this.$store.state.s_userid)
+                    var _this = this
+
+
+                    axios.post('/post/delbookmark',
+                        delBookmarkParam
+                    )
+                    .then(function (response) {
+                        if(response.data > 0){
+                            _this.isPostBookmarked = false
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+                }
+                else{
+                    //console.log("加入收藏")
+                    //发送添加收藏请求
+                    var addBookmarkParam = new URLSearchParams
+                    addBookmarkParam.append("bookmarkpostid", this.postid)
+                    addBookmarkParam.append("bookmarkposttitle", this.title)
+                    addBookmarkParam.append("bookmarkpostcontent", this.content)
+                    addBookmarkParam.append("bookmarkpostauthorid", this.authorid)
+                    addBookmarkParam.append("bookmarkby", this.$store.state.s_userid)
+                    var _this = this
+
+
+                    axios.post('/post/addbookmark',
+                        addBookmarkParam
+                    )
+                    .then(function (response) {
+                        if(response.data > 0){
+                            _this.isPostBookmarked = true
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+                }
+
+                //this.isPostBookmarked = !this.isPostBookmarked
+            }
+            else{
+                this.$message.info("请先登录")
+            }
+            
+
+            
+        },
         handleCurrentChange(val){
             this.currentPage = val
             console.log(this.currentPage)
@@ -537,9 +645,13 @@ export default {
             this.dialogImageUrl = file.url
             this.dialogVisible = true
         },
-        ggg(){
-            console.log(this.imageList)
-            console.log(this.newReplyContainImage)
+        //弹出弹窗，展示用户基本信息
+        showUserInfo(){
+            console.log("show user info")
+            this.showUserInfoForm = true
+            this.$nextTick(() => {
+                this.$refs.uIF.init();          
+            });
         }
 
     },

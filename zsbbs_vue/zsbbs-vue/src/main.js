@@ -14,6 +14,7 @@ import App from './App.vue'
 import routes from './router/index_router'
 import store from './store/index_vuex'
 import VueCookies from 'vue-cookies'
+import vuescroll from 'vuescroll';
 
 import './layout/breadcrumb.css'
 
@@ -27,6 +28,7 @@ app.use(ElementPlus)
 app.use(routes)
 // 将 store 实例作为插件安装
 app.use(store)
+app.use(vuescroll)
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.mount('#app')
 // app.use(VueCookies)

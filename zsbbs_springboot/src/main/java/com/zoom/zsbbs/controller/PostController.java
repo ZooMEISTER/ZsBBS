@@ -170,8 +170,10 @@ public class PostController {
     //查询所有帖子信息 按时间升序
     //http://localhost:8088/post/searchpost
     @RequestMapping(value = "/searchpost", method = RequestMethod.POST)
-    public PostShow queryAllPost(@RequestParam("searchby") String searchby){
-        return new PostShow(postService.getSearchPostCount(searchby), postService.searchPost(searchby));
+    public PostShow queryAllPost(@RequestParam("searchby") String searchby,
+                                 @RequestParam("pagenum") int pagenum,
+                                 @RequestParam("pagesize") int pagesize){
+        return new PostShow(postService.getSearchPostCount(searchby), postService.searchPost(searchby, pagenum, pagesize));
     }
 
 
@@ -372,4 +374,37 @@ public class PostController {
         //默认 返回 用户发的楼中楼回复
         return new SubReplyShow(subReplyService.getMySubreplyCountByUserid(userid), subReplyService.queryMySubreplyAtPagenumByUserid(pagenum, pagesize, userid));
     }
+
+    //根据postid和userid判断这个帖子是否被收藏
+    //http://localhost:8088/post/query/isthisbookmarked
+    @RequestMapping(value = "/query/isthisbookmarked", method = RequestMethod.POST)
+    public boolean queryIsThisPostBookmarkedUserid(@RequestParam("postid") int postid,
+                                                   @RequestParam("userid") int userid){
+
+        return postService.queryIsThisPostBookmarkedUserid(postid, userid);
+    }
+
+    //根据postid和userid添加收藏
+    //http://localhost:8088/post/addbookmark
+    @RequestMapping(value = "/addbookmark", method = RequestMethod.POST)
+    public int addBookmark(Bookmark bookmark){
+        return postService.addBookmark(bookmark);
+    }
+
+    //根据postid和userid取消收藏
+    //http://localhost:8088/post/delbookmark
+    @RequestMapping(value = "/delbookmark", method = RequestMethod.POST)
+    public int delBookmark(Bookmark bookmark){
+        return postService.delBookmark(bookmark.getBookmarkpostid(), bookmark.getBookmarkby());
+    }
+
+    //根据userid查询该用户收藏的所有帖子
+    //http://localhost:8088/post/query/allbookmarkedpost
+    @RequestMapping(value = "/query/allbookmarkedpost", method = RequestMethod.POST)
+    public BookmarkShow queryAllBookmarkedPostByUserid(@RequestParam("userid") int userid,
+                                                       @RequestParam("pagenum") int pagenum,
+                                                       @RequestParam("pagesize") int pagesize){
+        return new BookmarkShow(postService.getAllBookmarkedPostCountByUserid(userid), postService.queryAllBookmarkedPostByUserid(userid, pagenum, pagesize));
+    }
+
 }

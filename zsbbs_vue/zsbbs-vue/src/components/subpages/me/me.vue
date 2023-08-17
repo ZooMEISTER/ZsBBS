@@ -1,5 +1,4 @@
 <template>
-    <div style="height: 10px;"></div>
     <el-menu
         default-active="2"
         class="el-menu-vertical"
@@ -15,6 +14,11 @@
         <el-menu-item index="/zsbbs/me/post">
             
             <span>我的帖子</span>
+
+        </el-menu-item>
+        <el-menu-item index="/zsbbs/me/bookmark">
+            
+            <span>我的收藏</span>
 
         </el-menu-item>
         <el-menu-item index="/zsbbs/me/reply/myreply">

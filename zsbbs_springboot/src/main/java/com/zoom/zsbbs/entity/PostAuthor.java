@@ -14,6 +14,7 @@ public class PostAuthor {
     private String username;
     private int userpostcount;
     private int userreplycount;
+    private String description;
 
     public int getUserid() {
         return userid;
@@ -37,6 +38,10 @@ public class PostAuthor {
 
     public int getUserreplycount() {
         return userreplycount;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setUserid(int userid) {
@@ -63,6 +68,10 @@ public class PostAuthor {
         this.userreplycount = userreplycount;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "PostAuthor{" +
@@ -72,6 +81,7 @@ public class PostAuthor {
                 ", username='" + username + '\'' +
                 ", userpostcount=" + userpostcount +
                 ", userreplycount=" + userreplycount +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

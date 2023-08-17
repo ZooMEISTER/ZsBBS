@@ -1,198 +1,118 @@
-<template>
-    <!-- <div>
-        <h1>News</h1>
-    </div> -->
-
-    <!-- <div style="height: 100px"></div> -->
-    <div style="position: relative;">
-        <img class="ZWallPaper" src="../../assets/img/wallpaper/ZWallPaper-hp.png">
-        
+<template class="inner">
+    <!-- 第一屏 -->
+    <div class="Screen_1">
         <div class="ZNameBackground">
             <div class="ZName">
-                <div class="ZAvatar">
-                    <img class="ZAvatarImg" src="../../assets/img/Z/newZ-hp.png">
-                </div>
+                <text class="ZNameLetterZ" style="">Z</text>
+                <!-- <div style="width: 50px;"></div> -->
+                <!-- <div style="display: flex; flex-direction: column; margin-top: 140px;"> -->
+                <text class="ZNameLetter">O</text>
+                <text class="ZNameLetter">O</text>
+                <text class="ZNameLetter">M</text>
+                <text class="ZNameLetter">E</text>
+                <text class="ZNameLetter">I</text>
+                <text class="ZNameLetter">S</text>
+                <text class="ZNameLetter">T</text>
+                <text class="ZNameLetter">E</text>
+                <text class="ZNameLetter">R</text>
+                <!-- </div> -->
                 
-                <div class="myNameCover_O_1">
-                    O
-                </div>
-                <div class="myNameCover_O_2">
-                    O
-                </div>
-                <div class="myNameCover_M">
-                    M
-                </div>
             </div>
         </div>
         
-        <div class="ZDetailBackground">
-            <div class="ZDetail">
-                <div style="height: 50px"></div>
+    </div>
 
-                <!-- 走马灯 -->
-                <el-carousel :interval="5000" type="card" style="margin: auto; width: 90%;" arrow="never">
-                    <el-carousel-item v-for="item in carouselImgwrap" :key="item" style="height: 270px; width: 480px;">
-                        <img :src="item.url" style="height: 270px; width: 480px;" alt=""/>
-                    </el-carousel-item>
-                </el-carousel>
 
-                <!-- 链接 -->
-                <div>
-                    <text class="ZDetailText">
-                        Steam: 
-                        <el-link class="ZLink" href="https://steamcommunity.com/id/zoomeister64/"> 
-                            ZooMEISTER64 的 Steam 主页
-                        </el-link>
-                    </text>
-                    <div></div>
-                    <text class="ZDetailText">
-                        Github: 
-                        <el-link class="ZLink" href="https://github.com/ZooMEISTER"> 
-                            ZooMEISTER 的 Github 主页
-                        </el-link>
-                    </text>
-                    <div></div>
-                    <text class="ZDetailText"> 
-                        Tieba: 
-                        <el-link class="ZLink" href="https://tieba.baidu.com/home/main?un=%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8C%E7%9A%84%E5%B0%8F%E7%99%BD&fr=home&id=tb.1.9072bae9.uCjBNh6EhzwMszcIu-8qxg"> 
-                            ZooMEISTER 的 贴吧 主页
-                        </el-link>
-                    </text>
+    <!-- 第二屏 -->
+    <div class="Screen_2">
+        <div class="ZCardBackground">
+            <div class="ZCardRow">
+                <div style="height: 30%; width: 100%;"></div>
+                <div class="ZCardInnerRow">
+                    <div style="width: 7.5%"></div>
+                    <el-card class="ZCard" id="ZCard_1">
+                        <div class="ZCardInner">
+                            <text class="ZCardTitle">ZsBBS</text>
+                            <text class="ZCardDescription">
+                                ZsBBS 是我的个人网站<br>
+                                是您现在正在访问的网站<br>
+                                网站包括一个简易的论坛<br>
+                                想使用论坛相关功能，请先右上角登录<br>
+                            </text>
+                            <el-link class="ZCardLink" href="https://github.com/ZooMEISTER/ZsBBS">(源码)前往 Github</el-link>
+                        </div>
+                    </el-card>
+                    <div style="width: 5%"></div>
+                    <el-card class="ZCard" id="ZCard_2">
+                        <div class="ZCardInner">
+                            <text class="ZCardTitle">UPBBS</text>
+                            <text class="ZCardDescription">
+                                UPBBS 是一个微信小程序<br>
+                                是一个设计面向大学生的游戏交流平台<br>
+                                平台包括游戏相关资讯<br>
+                                以及一个用于交流的广场<br>
+                            </text>
+                            <el-link class="ZCardLink" href="https://www.bilibili.com/video/BV1VD4y1t78G/?spm_id_from=333.999.0.0&vd_source=681c49a24cab8a219f103a5d3d24cecb">(演示)前往 Bilibili</el-link>
+                        </div>
+                    </el-card>
+                    <div style="width: 5%"></div>
+                    <el-card class="ZCard" id="ZCard_3">
+                        <div class="ZCardInner">
+                            <text class="ZCardTitle">mePacman</text>
+                            <text class="ZCardDescription">
+                                mePacman 是一个贪吃蛇小游戏<br>
+                                游戏使用 C++ 编写，命令行作为游戏界面<br>
+                                加入了传送门，大力丸等经典要素<br>
+                                使用 A* 寻路算法<br>
+                            </text>
+                            <el-link class="ZCardLink" href="https://tieba.baidu.com/p/7871823808?pid=144384725346&cid=0#144384725346">(介绍)前往 Tieba</el-link>
+                        </div>
+                    </el-card>
+                    <div style="width: 7.5%"></div>
                 </div>
-
-                <div style="height: 200px;"></div>
-
-                <!-- 最近在玩 -->
-                <div>
-                    <text style="color: white; font-size: 30px;">ZooMEISTER : 一名玩家</text>
-                    <div></div>
-                    <text style="color: white; font-size: 30px;">最近在玩 :</text>
-                    <div style="height: 30px;"></div>
-                    <div style="">
-                        <iframe style="width: 96%; height: 500px;" src="//player.bilibili.com/player.html?aid=559040773&bvid=BV17e4y1S7on&cid=859789581&page=1&high_quality=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-                    </div>
-                </div>
-
-                <div style="height: 100px;"></div>
-
-                <text style="color: white; font-size: 30px;">ZooMEISTER : 一个偶尔学习的人</text>
-                <div></div>
-                <text style="color: white; font-size: 30px; width: 90%;"> 部分学习实践历程 : </text>
-                <div style="height: 30px;"></div>
-                <!-- Github时间线 -->
-                <el-timeline style="width: 100%; text-align: left;">
-                    <el-timeline-item timestamp="2018/4" placement="top">
-                        <div style="display: flex; flex-direction: row;">
-                            <el-card class="ZGithubTimelineCard">
-                                <text class="ZGithubTimelineTitle">Image-Text-Format-Switch</text>
-                                <div></div>
-                                <text class="ZGithubTimelineDescription">图片字符画转换器</text>
-                            </el-card>
-                            <div style="margin: auto;">
-                                <text style="font-size: 30px; color: white;"></text>
-                                <el-link href="https://tieba.baidu.com/p/5848172662?pid=121562156153&cid=0#121562156153">
-                                    <text style="font-size: 20px; color: white;">Image-Text-Format-Switch 介绍 (Tieba)</text>
-                                </el-link>
-                            </div>
-                        </div>
-                    </el-timeline-item>
-                    <el-timeline-item timestamp="2018/6" placement="top">
-                        <div style="display: flex; flex-direction: row;">
-                            <el-card class="ZGithubTimelineCard">
-                                <text class="ZGithubTimelineTitle">GDIP_Cube</text>
-                                <div></div>
-                                <text class="ZGithubTimelineDescription">VB.NET GDI+ 绘制的立方体</text>
-                            </el-card>
-                            <div style="margin: auto;">
-                                <text style="font-size: 30px; color: white;"></text>
-                                <el-link href="https://tieba.baidu.com/p/5848656664?pid=121568978899&cid=0#121568978899">
-                                    <text style="font-size: 20px; color: white;">GDIP_Cube 介绍 (Tieba)</text>
-                                </el-link>
-                            </div>
-                        </div>
-                    </el-timeline-item>
-                    <el-timeline-item timestamp="2021/9" placement="top">
-                        <div style="display: flex; flex-direction: row;">
-                            <el-card class="ZGithubTimelineCard">
-                                <text class="ZGithubTimelineTitle">mePacman</text>
-                                <div></div>
-                                <text class="ZGithubTimelineDescription">C++ 命令行显示的贪吃蛇</text>
-                            </el-card>
-                            <div style="margin: auto;">
-                                <text style="font-size: 30px; color: white;"></text>
-                                <el-link href="https://tieba.baidu.com/p/7557338328?pid=141471834712&cid=0#141471834712">
-                                    <text style="font-size: 20px; color: white;">mePacman 介绍 (Tieba)</text>
-                                </el-link>
-                            </div>
-                        </div>
-                        
-                    </el-timeline-item>
-                    <el-timeline-item timestamp="2022/10" placement="top">
-                        <div style="display: flex; flex-direction: row;">
-                            <el-card class="ZGithubTimelineCard">
-                                <text class="ZGithubTimelineTitle">UPBBS</text>
-                                <div></div>
-                                <text class="ZGithubTimelineDescription">面向高校玩家的游戏论坛微信小程序</text>
-                            </el-card>
-                            <div style="margin: auto;">
-                                <text style="font-size: 30px; color: white;"></text>
-                                <el-link href="https://www.bilibili.com/video/BV1VD4y1t78G/?spm_id_from=333.999.0.0&vd_source=681c49a24cab8a219f103a5d3d24cecb">
-                                    <text style="font-size: 20px; color: white;">UPBBS 演示 (Bilibili)</text>
-                                </el-link>
-                            </div>
-                        </div>
-                    </el-timeline-item>
-                    <el-timeline-item timestamp="2022/12" placement="top">
-                        <div style="display: flex; flex-direction: row;">
-                            <el-card class="ZGithubTimelineCard">
-                                <text class="ZGithubTimelineTitle">mySeckill</text>
-                                <div></div>
-                                <text class="ZGithubTimelineDescription">银行产品秒杀管理系统</text>
-                            </el-card>
-                            <div style="margin: auto;">
-                                <text style="font-size: 30px; color: white;"></text>
-                                <el-link href="">
-                                    <text style="font-size: 20px; color: white;">mySeckill 介绍</text>
-                                </el-link>
-                            </div>
-                        </div>
-                    </el-timeline-item>
-                    <el-timeline-item timestamp="2023/5" placement="top">
-                        <div style="display: flex; flex-direction: row;">
-                            <el-card class="ZGithubTimelineCard">
-                                <text class="ZGithubTimelineTitle">myCalendar</text>
-                                <div></div>
-                                <text class="ZGithubTimelineDescription">日历 APP</text>
-                            </el-card>
-                            <div style="margin: auto;">
-                                <text style="font-size: 30px; color: white;"></text>
-                                <el-link href="">
-                                    <text style="font-size: 20px; color: white;">myCalendar 介绍</text>
-                                </el-link>
-                            </div>
-                        </div>
-                    </el-timeline-item>
-                    <el-timeline-item timestamp="2023/6" placement="top">
-                        <div style="display: flex; flex-direction: row;">
-                            <el-card class="ZGithubTimelineCard">
-                                <text class="ZGithubTimelineTitle">ZsBBS</text>
-                                <div></div>
-                                <text class="ZGithubTimelineDescription">个人网站</text>
-                            </el-card>
-                            <div style="margin: auto;">
-                                <text style="font-size: 30px; color: white;"></text>
-                                <el-link href="">
-                                    <text style="font-size: 20px; color: white;">源码见 Github</text>
-                                </el-link>
-                            </div>
-                        </div>
-                    </el-timeline-item>
-                </el-timeline>
+                <div style="height: 0%; width: 100%;"></div>
             </div>
+            
+
+            <div class="ZCardRow">
+                <div style="height: 10%; width: 100%;"></div>
+                <div class="ZCardInnerRow">
+                    <div style="width: 7.5%"></div>
+                    <el-card class="ZCard" id="ZCard_4">
+                        <div class="ZCardInner">
+                            <text class="ZCardTitle">meSeckill</text>
+                            <text class="ZCardDescription">
+                                meSeckill 是一个银行产品秒杀系统<br>
+                                前端使用Bootstrap + Jquery<br>
+                                后端使用Springboot + Redis<br>
+                            </text>
+                            <el-link class="ZCardLink" href="https://github.com/ZooMEISTER/mySecKilll">(源码)前往 Github</el-link>
+                        </div>
+                    </el-card>
+                    <div style="width: 5%"></div>
+                    <el-card class="ZCard" id="ZCard_5">
+                        
+                    </el-card>
+                    <div style="width: 5%"></div>
+                    <el-card class="ZCard" id="ZCard_6">
+                        
+                    </el-card>
+                    <div style="width: 7.5%"></div>
+                </div>
+                <div style="height: 20%; width: 100%;"></div>
+            </div>
+            
+
         </div>
+    </div>
 
-        <div class="ZFill">
 
+    <!-- 第三屏 -->
+    <div class="Screen_3">
+        <div class="ZDetailBackground">
+            <el-card class="ZDetailCard">
+
+            </el-card>
         </div>
     </div>
 
@@ -202,18 +122,13 @@
 <script>
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { getCurrentInstance } from 'vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default {
     data(){
         return{
-            carouselImgwrap:[
-                { url:require("../../assets/img/carousel/github.png") },
-                { url:require("../../assets/img/carousel/steam.png") },
-                { url:require("../../assets/img/carousel/tieba.png") },
-            ],
+            
 
         }
     },
@@ -223,142 +138,196 @@ export default {
         },
     },
     created(){
-        
+        // document.body.style.overflow = "hidden";
     },
     mounted(){
-        gsap.from(".ZAvatar", {y: 2000, duration: 1, ease: "power4.out", delay: 0.5});
-        gsap.from(".myNameCover_O_1", {y: 2000, duration: 1, ease: "power4.out", delay: 0.6});
-        gsap.from(".myNameCover_O_2", {y: 2000, duration: 1, ease: "power4.out", delay: 0.7});
-        gsap.from(".myNameCover_M", {y: 2000, duration: 1, ease: "power4.out", delay: 0.8});
+        //上屏动画
+        gsap.timeline()
+            .from('.ZNameLetterZ', {x: -1500, duration: 1, ease: "power4.out"})
+            .from('.ZNameLetter', {y: 1000, duration: 1, ease: "poser4.out", stagger: 0.1}, "<")
 
         ScrollTrigger.create({
-            trigger: ".ZName",
-            start: "-=50",
-            end: "+=200",
+            trigger: '.Screen_1',
+            start: 'top top',
+            end: '+=900',
+            markers: false,
+            pin: false,
             scrub: true,
-            animation: 
-                gsap.timeline()
-                    .to(".ZName", {y: 0, scale: 0.4, ease: "none"})
-                    .from(".ZDetail", {y: 500, ease: "none"}, "<")
-                    
+            animation: gsap.timeline()
+                .to('.ZNameLetterZ', {y: 800, ease: "none"})
+                .to('.ZNameLetter', {x: -1500, ease: "none", stagger: 0.05}, "<")
         })
 
+
+
+        //多屏滚动 + 中屏动画
         ScrollTrigger.create({
-            trigger: ".ZWallPaper",
-            start: "-=50",
-            end: "+=2150",
+            trigger: '.Screen_2',
+            start: 'top top',
+            end: '+=1000',
+            markers: false,
+            pin: true,
             scrub: true,
-            animation: 
-                gsap.timeline()
-                    .to(".ZWallPaper", {y: 1800, ease: "none"})
-                    
+            animation: gsap.timeline()
+                .from('#ZCard_1', {x: '29.75vw', y: '19.4vh', ease: "poser4.out"})
+                .from('#ZCard_2', {x: 0, y: '19.4vh', ease: "poser4.out"}, "<")
+                .from('#ZCard_3', {x: '-29.75vw', y: '19.4vh', ease: "poser4.out"}, "<")
+                .from('#ZCard_4', {x: '29.75vw', y: '-23vh', ease: "poser4.out"}, "<")
+                .from('#ZCard_5', {x: 0, y: '-23vh', ease: "poser4.out"}, "<")
+                .from('#ZCard_6', {x: '-29.75vw', y: '-23vh', ease: "poser4.out"}, "<")
+                // .from('#ZCard_1', {x: 612, y: 195, ease: "poser4.out"})
+                // .from('#ZCard_2', {x: 0, y: 195, ease: "poser4.out"}, "<")
+                // .from('#ZCard_3', {x: -612, y: 195, ease: "poser4.out"}, "<")
+                // .from('#ZCard_4', {x: 612, y: -195, ease: "poser4.out"}, "<")
+                // .from('#ZCard_5', {x: 0, y: -195, ease: "poser4.out"}, "<")
+                // .from('#ZCard_6', {x: -612, y: -195, ease: "poser4.out"}, "<")
         })
+
+        
+
+        //下屏动画
+
     }
 }
 
 </script>
 
 <style>
-.ZWallPaper{
-    width: 100%;
-    left: 0px;
-    position: absolute;
-    z-index: 2;
+/* ::-webkit-scrollbar {
+    width: 1 !important;
 }
-.ZNameBackground{
-    width: 100%; 
-    height: 800px; 
-    display: flex; 
-    flex-direction: row;
+::-webkit-scrollbar {
+    width: 1; 
+    height: 0;
+} */
+
+/* 屏 */
+.Screen_1{
+    width: 100%;
+    height: 100vh;
+    background: salmon;
+}
+.Screen_2{
+    width: 100%;
+    height: 100vh;
+    background: skyblue;
+}
+.Screen_3{
+    width: 100%;
+    height: 100vh;
+    background: pink;
     position: absolute;
-    z-index: 4;
+}
+
+/* 第一屏 */
+.ZNameBackground{
+    width: 100%;
+    height: 100%;
+    display: flex;
 }
 .ZName{
-    /* width: 100%; */
-    height: 800px;
+    margin: auto;
     display: flex;
     flex-direction: row;
+}
+.ZNameLetterZ{
+    font-size: 700px; 
+    color: white;
+    margin-top: -30px;
+}
+.ZNameLetter{
+    font-size: 100px;
+    color: white;
+    margin-top: 520px;
+}
+
+/* 第二屏 */
+.ZCardBackground{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.ZCardRow{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+}
+.ZCardInnerRow{
+    height: 100%; 
+    width: 100%; 
+    display: flex; 
+    flex-direction: row;
+}
+.ZCard{
+    width: 25%;
+    height: 70%;
+}
+.ZCardInner{
+    height: 100%;
+    width: 100%;
+    display: flex; 
+    flex-direction: column;
     align-items: center;
-    margin: auto;
 }
-.ZAvatar{
-    width: 550px;
-    height: 100%;
-    left: 0px;
-    position: relative;
+.ZCardTitle{
+    font-size: 30px;
+    color: rgb(66, 178, 223);
+    margin-top: 10px;
 }
-.ZAvatarImg{
-    width: 100%;
+.ZCardDescription{
+    font-size: 20px;
+    color: black;
+    margin-top: 20px;
 }
-.myNameCover_O_1{
-    height: 100%;
-    
-    background: rgba(0, 0, 0, 0);
-    font-size: 500px;
-    color: rgba(255, 255, 255, 0.534);
-}
-.myNameCover_O_2{
-    height: 100%;
-    
-    background: rgba(0, 0, 0, 0);
-    font-size: 500px;
-    color: rgba(255, 255, 255, 0.534);
-}
-.myNameCover_M{
-    height: 100%;
-    
-    background: rgba(0, 0, 0, 0);
-    font-size: 500px;
-    color: rgba(255, 255, 255, 0.534);
-}
-.ZDetailBackground{
-    width: 100%;
+.ZCardLink{
     position: absolute;
+    font-size: 20px;
+    color: skyblue;
+    width:fit-content;
+    bottom: 25px;
+}
+#ZCard_1{
+    margin: auto;
+    /* margin-left: 100px; */
+    z-index: 6;
+}
+#ZCard_2{
+    margin: auto;
+    z-index: 5;
+}
+#ZCard_3{
+    margin: auto;
+    /* margin-right: 100px; */
+    z-index: 4;
+}
+#ZCard_4{
+    margin: auto;
+    /* margin-left: 100px; */
     z-index: 3;
 }
-.ZDetail{
-    height: 2500px;
-    width: 50%;
-    background: rgba(83, 83, 83, 0.527);
+#ZCard_5{
     margin: auto;
-    margin-top: 500px;
-    backdrop-filter: blur(6px);
+    z-index: 2;
 }
-
-.el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-    background-color: #d3dce6;
-}
-
-.ZDetailText{
-    font-size: 30px;
-    color: white;
-}
-.ZLink{
-    color: white;
-    font-size: 20px;
-}
-.ZGithubTimelineCard{
-    width: 40%;
-    background: rgba(255, 255, 255, 0);
-}
-.ZGithubTimelineTitle{
-    font-size: 25px;
-    color: white;
-}   
-.ZGithubTimelineDescription{
-    font-size: 20px;
-    color: white;
-}
-
-.ZFill{
-    height: 3000px;
-    width: 100%;
-    background: rgb(0, 0, 0);
-    position: absolute;
+#ZCard_6{
+    margin: auto;
+    /* margin-right: 100px; */
     z-index: 1;
 }
+
+/* 第三屏 */
+.ZDetailBackground{
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+.ZDetailCard{
+    height: 70%;
+    width: 70%;
+    margin: auto;
+}
+
+
 </style>

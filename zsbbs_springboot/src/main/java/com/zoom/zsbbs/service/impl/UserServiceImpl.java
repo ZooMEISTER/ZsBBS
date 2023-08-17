@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> queryAllUser() {
         List<User> userList = usertableMapper.selectList(null);
-        System.out.println(userList);
+        //System.out.println(userList);
         return userList;
     }
 
@@ -57,6 +57,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public int updatePasswordByUserid(int userid, String password) {
         return usertableMapper.updatePasswordByUserid(userid, password);
+    }
+
+    @Override
+    public int updateDescriptionByUserid(int userid, String description) {
+        return usertableMapper.updateDescriptionByUserid(userid, description);
     }
 
     @Override

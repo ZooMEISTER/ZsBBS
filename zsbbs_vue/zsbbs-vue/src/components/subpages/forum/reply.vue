@@ -5,7 +5,7 @@
             <div style="display: flex; flex-direction: column; width: 10%; height: 100%">
                 <el-avatar :size="80" :src="replayAuthorAvatar" style="align-self: center;"/>
                 <div style="height: 10px"/>
-                <el-text type="primary">{{replyAuthorName}}</el-text>
+                <el-link type="primary" style="width: 100%; font-size: 20px;" @click="showUserInfo">{{replyAuthorName}}</el-link>
                 <div style="height: 10px"/>
                 <el-tag v-if="p_replypostauthorid == p_replyauthorid" style="width: 50%; margin: auto;"> 楼主 </el-tag>
                 <div style="height: 5px"/>
@@ -68,12 +68,16 @@
         </span>
         </template>
     </el-dialog>
+
+    <!-- 用户信息弹窗 -->
+    <Comp_UserInfoForm v-if="showUserInfoForm" ref="uIF" :p_targetuserid="p_replyauthorid"></Comp_UserInfoForm>
 </template>
 
 <script>
 import axios from 'axios'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import Comp_showSubReply from "./showsubreply.vue"
+import Comp_UserInfoForm from "../../user_info_form.vue"
 
 export default {
     created(){
@@ -83,7 +87,8 @@ export default {
         this.getContainImage()
     },
     components:{
-        Comp_showSubReply
+        Comp_showSubReply,
+        Comp_UserInfoForm,
     },
     props:{
         p_index: Number,
@@ -106,6 +111,8 @@ export default {
             newSubReplyContent: "",
 
             allImage: [],
+
+            showUserInfoForm: false,
         }
     },
     methods:{
@@ -254,6 +261,14 @@ export default {
                 console.log(error);
             });
         },
+        //弹出弹窗，展示用户基本信息
+        showUserInfo(){
+            console.log("show user info")
+            this.showUserInfoForm = true
+            this.$nextTick(() => {
+                this.$refs.uIF.init();          
+            });
+        }
     }
 }
 </script>

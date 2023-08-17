@@ -43,6 +43,14 @@
                     <el-text v-if="userChangePassword">&nbsp;&nbsp;(已更改)</el-text>
 
                 </el-form-item>
+                <el-form-item label="简介 ">
+
+                    <el-text type="primary" size="large" style="width:300px;text-align:left;">{{description}}</el-text>
+                    <div style="width: 50px;"/>
+                    <el-button type="primary" @click="dialog_changeDescription_v = true">更改</el-button>
+                    <el-text v-if="userChangeDescription">&nbsp;&nbsp;(已更改)</el-text>
+
+                </el-form-item>
                 <el-form-item>
                     
                     <el-button type="primary" @click="submitProfileChange" style="width:100px;">保存</el-button>
@@ -95,6 +103,27 @@
         </template>
     </el-dialog>
 
+    <!-- 更改用户简介对话框 -->
+    <el-dialog
+        v-model="dialog_changeDescription_v"
+        title="更改用户简介"
+        width="30%"
+        align-center>
+        <span>
+            <el-input v-model="tmp_description" placeholder="新简介" style="width:80%;">
+                {{description}}
+            </el-input>
+        </span>
+        <template #footer>
+        <span class="dialog-footer">
+            <el-button @click="dialog_changeDescription_v = false, tmp_description = ''">取消</el-button>
+            <el-button type="primary" @click="changeDesscription">
+                确认
+            </el-button>
+        </span>
+        </template>
+    </el-dialog>
+
 </template>
 
 <script>
@@ -107,13 +136,17 @@ export default {
             userChangeAvatar: false,
             userChangeUsername: false,
             userChangePassword: false,
+            userChangeDescription: false,
 
             dialog_changeUsername_v: false,
             dialog_changePassword_v: false,
+            dialog_changeDescription_v: false,
 
             avatar: this.$store.state.s_avatar,
             username: this.$store.state.s_username,
+            description: this.$store.state.s_description,
             tmp_username: "",
+            tmp_description: "",
             password: "",
             tmp_password: "",
             tmp_password_2: "",
@@ -205,10 +238,24 @@ export default {
                 this.$message.error("两次输入密码不同")
             }
         },
+        //更改了用户简介
+        changeDesscription(){
+            if(this.tmp_description.length > 25){
+                //简介过长
+                this.$message.error("简介长度不能超过 25 字符")
+            }
+            else{
+                //更改简介
+                this.dialog_changeDescription_v = false
+                this.userChangeDescription = true
+                this.description = this.tmp_description
+                this.tmp_description = ""
+            }
+        },
         //提交个人信息更改
         //发送请求和更改vuex中的数据
         submitProfileChange(){
-            if(this.userChangeAvatar || this.userChangeUsername || this.userChangePassword){
+            if(this.userChangeAvatar || this.userChangeUsername || this.userChangePassword || this.userChangeDescription){
                 ElMessageBox.confirm(
                     '您确定要更改个人资料吗 ?',
                     '更改个人资料',
@@ -253,7 +300,7 @@ export default {
                             changeUserProfileParam.append("username", this.username)
                             var _this = this
 
-                            //更改用户头像请求
+                            //更改用户名请求
                             axios.post('/user/update/username', 
                                 changeUserProfileParam
                             )
@@ -283,7 +330,7 @@ export default {
                             changeUserProfileParam.append("password", this.password)
                             var _this = this
 
-                            //更改用户头像请求
+                            //更改用户密码请求
                             axios.post('/user/update/password', 
                                 changeUserProfileParam
                             )
@@ -297,10 +344,41 @@ export default {
                                 console.log(error);
                             });
                         }
+                        //用户更改了简介
+                        if(this.userChangeDescription){
+                            console.log("updating description")
+                            var changeUserProfileParam = new URLSearchParams
+
+                            changeUserProfileParam.append("userid", this.$store.state.s_userid)
+                            changeUserProfileParam.append("description", this.description)
+                            var _this = this
+
+                            //更改简介请求
+                            axios.post('/user/update/description', 
+                                changeUserProfileParam
+                            )
+                            .then(function (response) {
+                                if(response.data == 10000){
+                                    _this.$store.commit('syncStoreDescriptionData',{
+                                        description: _this.description,
+                                    })
+                                }
+                                else if(response.data == 10004){
+                                    _this.$message.error("用户简介更新失败")
+                                    _this.username = _this.$store.state.s_username
+                                }
+                                
+                                console.log(response);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                        }
 
                     this.userChangeAvatar = false
                     this.userChangeUsername = false
                     this.userChangePassword = false
+                    this.userChangeDescription = false
                     
                     this.$message.success('个人资料更改成功')
                     })

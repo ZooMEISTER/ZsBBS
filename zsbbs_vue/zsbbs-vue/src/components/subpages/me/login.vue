@@ -37,6 +37,7 @@ export default {
             password: "",
             userpostcount: 0,
             userreplycount: 0,
+            description: "",
             token: "",
         }
     },
@@ -52,6 +53,7 @@ export default {
                 password: this.password,
                 userpostcount: this.userpostcount,
                 userreplycount: this.userreplycount,
+                description: this.description
             })
 
             //将返回的token写入到cookie
@@ -110,6 +112,7 @@ export default {
                         _this.usertype = response.data.data.usertype
                         _this.userpostcount = response.data.data.userpostcount
                         _this.userreplycount = response.data.data.userreplycount
+                        _this.description = response.data.data.description
                         _this.token = response.data.data.token
                         _this.$store.commit('syncStoreToken', {token: _this.token})
                         _this.logInSuccess()

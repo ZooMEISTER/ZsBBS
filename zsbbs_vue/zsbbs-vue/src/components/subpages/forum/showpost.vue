@@ -1,19 +1,34 @@
 <template>
-    <Comp_SinglePost v-for="(spost, index) in allPosts" 
-        :p_postType="p_postType"
+    <div v-if='p_postType != 3'>
+        <Comp_SinglePost v-for="(spost, index) in allPosts" 
+            :p_postType="p_postType"
 
-        :p_index="index"
-        :key="spost.postid" 
-        :p_postid="spost.postid"
-        :p_title="spost.title"
-        :p_content="spost.content"
-        :p_replycount="spost.replycount"
-        :p_authorid="spost.authorid"
-        :p_publishtime="spost.publishtime"
-        :p_maxfloor="spost.maxfloor"
-        :p_latestreplytime="spost.latestreplytime"
-        :p_containimage="spost.containimage"
-    />
+            :p_index="index"
+            :key="spost.postid" 
+            :p_postid="spost.postid"
+            :p_title="spost.title"
+            :p_content="spost.content"
+            :p_replycount="spost.replycount"
+            :p_authorid="spost.authorid"
+            :p_publishtime="spost.publishtime"
+            :p_maxfloor="spost.maxfloor"
+            :p_latestreplytime="spost.latestreplytime"
+            :p_containimage="spost.containimage"
+        />
+    </div>
+    <div v-else>
+        <Comp_SinglePost v-for="(spost, index) in allPosts" 
+            :p_postType="p_postType"
+
+            :p_index="index"
+            :key="spost.bookmarkid" 
+            :p_postid="spost.bookmarkpostid"
+            :p_title="spost.bookmarkposttitle"
+            :p_content="spost.bookmarkpostcontent"
+            :p_authorid="spost.bookmarkpostauthorid"
+            :p_bookmarktime="spost.bookmarktime"
+        />
+    </div>
 
     <div style="width: 100%; margin: auto;">
         <div style="width: 70%; margin: auto;">
@@ -55,7 +70,7 @@ export default {
         Comp_SinglePost
     },
     props:{
-        //0 是显示广场上的所有帖子  1 表示是用户发的帖子  2 表示是搜索出来的帖子
+        //0 是显示广场上的所有帖子  1 表示是用户发的帖子  2 表示是搜索出来的帖子 3 表示是用户收藏的帖子  4 表示返回指定用户所发的帖子
         p_postType: Number,
         //帖子是否按降序排列
         p_postDesc: Boolean,
@@ -63,6 +78,8 @@ export default {
         p_sortby: String,
         //若是搜索贴子请求，则需要传入这个搜索索引
         p_searchby: String,
+
+        p_targetUserId: Number,
     },
     data(){
         return{
@@ -129,6 +146,8 @@ export default {
                 var querySearchPostParam = new URLSearchParams
 
                 querySearchPostParam.append("searchby", this.p_searchby)
+                querySearchPostParam.append("pagenum", this.currentPage) //查询的页码 0 为全部 > 0 为对应页数
+                querySearchPostParam.append("pagesize", this.pageSize)
 
                 axios.post("/post/searchpost", querySearchPostParam)
                 .then(function (response) {
@@ -141,6 +160,63 @@ export default {
                     console.log(error);
                 });
 
+            }
+            else if(this.p_postType == 3){
+                //当请求帖子的请求是从我的收藏发出
+                var _this = this
+                var queryMyBookmarkPostParam = new URLSearchParams
+
+                queryMyBookmarkPostParam.append("userid", this.$store.state.s_userid)
+                queryMyBookmarkPostParam.append("pagenum", this.currentPage) //查询的页码 0 为全部 > 0 为对应页数
+                queryMyBookmarkPostParam.append("pagesize", this.pageSize)
+
+                axios.post("/post/query/allbookmarkedpost", queryMyBookmarkPostParam)
+                .then(function (response) {
+                    _this.totalCount = response.data.bookmarkCount
+                    _this.allPosts = response.data.bookmarkList
+                    
+                    console.log(response.data)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+            }
+            else if(this.p_postType == 4){
+                //当请求某个用户所发的帖子
+                var _this = this
+                var queryURL = "/post/queryallpost"
+
+                var queryPostParam = new URLSearchParams
+
+                this.sortby = sb
+                this.postDesc = pd
+
+                console.log("sortby " + sb)
+                console.log("postdesc " + pd)
+                
+                queryPostParam.append("useparam", this.useparam)
+                queryPostParam.append("posttype", 1)
+                queryPostParam.append("postdesc", true)
+                queryPostParam.append("sortby", "pt")
+                queryPostParam.append("pagenum", this.currentPage) //查询的页码 0 为全部 > 0 为对应页数
+                queryPostParam.append("pagesize", this.pageSize)
+                queryPostParam.append("userid", this.p_targetUserId)
+
+
+                
+                axios.post("/post/queryallpost", queryPostParam)
+                .then(function (response) {
+                    _this.totalCount = response.data.count
+                    _this.allPosts = response.data.postList
+                    _this.$store.commit('syncStorePostsData', { posts: _this.allPosts })
+                    console.log(response.data)
+                    // console.log(_this.allPosts);
+                    // console.log(_this.allPosts[0].publishtime);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
             }
             
             

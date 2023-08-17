@@ -36,6 +36,9 @@ public interface UserService {
     //更改用户密码
     int updatePasswordByUserid(int userid, String password);
 
+    //更改用户简介
+    int updateDescriptionByUserid(int userid, String description);
+
     //通过userid查询作者信息
     PostAuthor queryAuthorInfoByUserid(int userid);
 }

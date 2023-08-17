@@ -21,8 +21,10 @@ public class User {
     private int usertype;
     private String username;
     private String password;
+    private String description;
     private int userpostcount;
     private int userreplycount;
+
 
     public int getUserid() {
         return userid;
@@ -43,7 +45,9 @@ public class User {
     public String getPassword() {
         return password;
     }
-
+    public String getDescription() {
+        return description;
+    }
     public int getUserpostcount() {
         return userpostcount;
     }
@@ -51,6 +55,8 @@ public class User {
     public int getUserreplycount() {
         return userreplycount;
     }
+
+
 
     public void setUserid(int userid) {
         this.userid = userid;
@@ -72,6 +78,10 @@ public class User {
         this.password = password;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public void setUserpostcount(int userpostcount) {
         this.userpostcount = userpostcount;
     }
@@ -79,6 +89,8 @@ public class User {
     public void setUserreplycount(int userreplycount) {
         this.userreplycount = userreplycount;
     }
+
+
 
     @Override
     public String toString() {
@@ -90,6 +102,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", userpostcount=" + userpostcount +
                 ", userreplycount=" + userreplycount +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

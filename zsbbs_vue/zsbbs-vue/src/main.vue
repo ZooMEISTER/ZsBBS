@@ -7,13 +7,13 @@
             :p_username="this.$store.state.s_username"
         ></TopNavigateBar>
     </div>
-    <div style="top: 0px; height: 50px;"/>
-    <router-view></router-view>
-    <div style="width: 100%; height: 100px;">
-    </div>
-    <div style="width: 100%; height: 30px;">
-        by ZooMEISTER
-    </div>
+    <div style="top: 0px; height: 60px;"/>
+        <router-view></router-view>
+        <div style="width: 100%; height: 100px;">
+        </div>
+        <div style="width: 100%; height: 30px;">
+            by ZooMEISTER
+        </div>
 </template>
 
 <script>
@@ -41,6 +41,7 @@ export default {
             password: "",
             userpostcount: 0,
             userreplycount: 0,
+            description: "",
             token: "",
         }
     },
@@ -56,6 +57,7 @@ export default {
                 password: this.password,
                 userpostcount: this.userpostcount,
                 userreplycount: this.userreplycount,
+                description: this.description,
             })
 
             //将返回的token写入到cookie
@@ -86,6 +88,7 @@ export default {
                         _this.password = response.data.data.password
                         _this.userpostcount = response.data.data.userpostcount
                         _this.userreplycount = response.data.data.userreplycount
+                        _this.description = response.data.data.description
                         _this.token = response.data.data.token
                         _this.$store.commit('syncStoreToken', {token: _this.token})
                         _this.logInSuccess()

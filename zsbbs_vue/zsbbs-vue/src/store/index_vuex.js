@@ -11,6 +11,7 @@ const store = createStore({
         s_password: "",
         s_userpostcount: 0,
         s_userreplycount: 0,
+        s_description: "",
         s_token: "token",
         s_posts: [],
     }
@@ -23,6 +24,7 @@ const store = createStore({
             state.s_usertype = payload.usertype
             state.s_username = payload.username
             state.s_password = payload.password
+            state.s_description = payload.description
             console.log("s_state: " + state.s_userid + " " + state.s_avatar + " " + state.s_usertype + " " + state.s_username + " " + state.s_password)
         },
         syncStoreAvatarData(state, payload){
@@ -36,6 +38,10 @@ const store = createStore({
         syncStorePasswordData(state, payload){
             state.s_password = payload.password
             console.log("s_password: " + state.s_password)
+        },
+        syncStoreDescriptionData(state, payload){
+            state.s_description = payload.description
+            console.log("s_description: " + state.s_description)
         },
         syncStoreUserPostCountData(state, payload){
             state.s_userpostcount = payload.userpostcount

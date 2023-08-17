@@ -1,9 +1,11 @@
 package com.zoom.zsbbs.service;
 
+import com.zoom.zsbbs.entity.Bookmark;
 import com.zoom.zsbbs.entity.Post;
 import com.zoom.zsbbs.entity.Reply;
 import com.zoom.zsbbs.param.PostResult;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -21,7 +23,7 @@ public interface PostService {
 
     List<Post> queryAllPost();
 
-    List<Post> searchPost(String searchby);
+    List<Post> searchPost(String searchby, int pagenum, int pagesize);
     int getSearchPostCount(String searchby);
 
 
@@ -60,4 +62,12 @@ public interface PostService {
 
     PostResult addNewPost(String string_post);
 
+    boolean queryIsThisPostBookmarkedUserid(int postid, int userid);
+
+    int addBookmark(Bookmark bookmark);
+
+    int delBookmark(int postid, int userid);
+
+    int getAllBookmarkedPostCountByUserid(int userid);
+    List<Bookmark> queryAllBookmarkedPostByUserid(int userid, int pagenum, int pagesize);
 }
