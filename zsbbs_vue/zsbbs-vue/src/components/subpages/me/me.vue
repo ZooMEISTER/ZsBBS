@@ -11,6 +11,11 @@
             <span>个人资料</span>
 
         </el-menu-item>
+        <el-menu-item index="/zsbbs/me/follow">
+
+            <span>我的关注</span>
+
+        </el-menu-item>
         <el-menu-item index="/zsbbs/me/post">
             
             <span>我的帖子</span>

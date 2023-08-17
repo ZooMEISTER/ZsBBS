@@ -1,7 +1,9 @@
 package com.zoom.zsbbs.service.impl;
 
+import com.zoom.zsbbs.entity.Follow;
 import com.zoom.zsbbs.entity.PostAuthor;
 import com.zoom.zsbbs.entity.User;
+import com.zoom.zsbbs.mapper.FollowMapper;
 import com.zoom.zsbbs.mapper.UsertableMapper;
 import com.zoom.zsbbs.param.LoginResult;
 import com.zoom.zsbbs.service.UserService;
@@ -21,6 +23,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UsertableMapper usertableMapper;
+
+    @Autowired
+    private FollowMapper followMapper;
 
     @Override
     public User queryUserByUserid(int userid) {
@@ -67,5 +72,45 @@ public class UserServiceImpl implements UserService {
     @Override
     public PostAuthor queryAuthorInfoByUserid(int userid) {
         return usertableMapper.queryAuthorByUserid(userid);
+    }
+
+    @Override
+    public Boolean querySingleFollow(int followeduserid, int followeruserid) {
+        if(followMapper.querySingleFollow(followeduserid, followeruserid) > 0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int addFollow(Follow follow) {
+        return followMapper.insert(follow);
+    }
+
+    @Override
+    public int delFollow(int followeduserid, int followeruserid) {
+        return followMapper.delfollow(followeduserid, followeruserid);
+    }
+
+    @Override
+    public List<Follow> getAllFollowto(int userid, int pagenum, int pagesize) {
+        int startnum = (pagenum - 1) * pagesize;
+        return followMapper.getAllFollowto(userid, startnum, pagesize);
+    }
+
+    @Override
+    public int getAllFollowtoCount(int userid) {
+        return followMapper.getAllFollowtoCount(userid);
+    }
+
+    @Override
+    public List<Follow> getAllFollower(int userid, int pagenum, int pagesize) {
+        int startnum = (pagenum - 1) * pagesize;
+        return followMapper.getAllFollower(userid, startnum, pagesize);
+    }
+
+    @Override
+    public int getAllFollowerCount(int userid) {
+        return followMapper.getAllFollowerCount(userid);
     }
 }

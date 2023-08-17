@@ -24,7 +24,10 @@ public class User {
     private String description;
     private int userpostcount;
     private int userreplycount;
-
+    //关注这个人的用户数
+    private int follower;
+    //这个人关注的用户数
+    private int followto;
 
     public int getUserid() {
         return userid;
@@ -56,7 +59,13 @@ public class User {
         return userreplycount;
     }
 
+    public int getFollower() {
+        return follower;
+    }
 
+    public int getFollowto() {
+        return followto;
+    }
 
     public void setUserid(int userid) {
         this.userid = userid;
@@ -90,7 +99,13 @@ public class User {
         this.userreplycount = userreplycount;
     }
 
+    public void setFollower(int follower) {
+        this.follower = follower;
+    }
 
+    public void setFollowto(int followto) {
+        this.followto = followto;
+    }
 
     @Override
     public String toString() {
@@ -100,9 +115,11 @@ public class User {
                 ", usertype=" + usertype +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", description='" + description + '\'' +
                 ", userpostcount=" + userpostcount +
                 ", userreplycount=" + userreplycount +
-                ", description='" + description + '\'' +
+                ", follower=" + follower +
+                ", followto=" + followto +
                 '}';
     }
 }

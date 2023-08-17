@@ -1,8 +1,11 @@
 package com.zoom.zsbbs.controller;
 
 import cn.hutool.crypto.SecureUtil;
+import com.zoom.zsbbs.entity.Follow;
+import com.zoom.zsbbs.entity.FollowShow;
 import com.zoom.zsbbs.entity.PostAuthor;
 import com.zoom.zsbbs.entity.User;
+import com.zoom.zsbbs.mapper.FollowMapper;
 import com.zoom.zsbbs.service.UserService;
 import com.zoom.zsbbs.utils.JWTUtils;
 import com.zoom.zsbbs.param.LoginResult;
@@ -224,5 +227,39 @@ public class UserController {
             return UserResultCode.UPDATE_FAIL;
         }
 
+    }
+
+    //查找是否存在某个关注
+    @RequestMapping(value = "/querysinglefollow", method = RequestMethod.POST)
+    public Boolean querySingleFollow(@RequestParam("followeduserid") int followeduserid, @RequestParam("followeruserid") int followeruserid){
+        return userService.querySingleFollow(followeduserid, followeruserid);
+    }
+
+    //添加新的关注
+    @RequestMapping(value = "/addfollow", method = RequestMethod.POST)
+    public int addFollow(Follow follow){
+        return userService.addFollow(follow);
+    }
+
+    //删除关注
+    @RequestMapping(value = "/delfollow", method = RequestMethod.POST)
+    public int delFollow(@RequestParam("followeduserid") int followeduserid, @RequestParam("followeruserid") int followeruserid){
+        return userService.delFollow(followeduserid, followeruserid);
+    }
+
+    //获取指定用户的所有关注的用户
+    @RequestMapping(value = "/getallfollowto", method = RequestMethod.POST)
+    public FollowShow getAllFollowto(@RequestParam("userid") int userid,
+                                     @RequestParam("pagenum") int pagenum,
+                                     @RequestParam("pagesize") int pagesize){
+        return new FollowShow(userService.getAllFollowtoCount(userid), userService.getAllFollowto(userid, pagenum, pagesize));
+    }
+
+    //获取关注指定用户的所有的用户
+    @RequestMapping(value = "/getallfollower", method = RequestMethod.POST)
+    public FollowShow getAllFollower(@RequestParam("userid") int userid,
+                                       @RequestParam("pagenum") int pagenum,
+                                       @RequestParam("pagesize") int pagesize){
+        return new FollowShow(userService.getAllFollowerCount(userid), userService.getAllFollower(userid, pagenum, pagesize));
     }
 }

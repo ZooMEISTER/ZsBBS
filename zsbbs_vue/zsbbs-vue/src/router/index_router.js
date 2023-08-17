@@ -11,6 +11,7 @@ import Page_Login from "../components/subpages/me/login.vue"
 import Page_Register from "../components/subpages/me/register.vue"
 import Page_ME from "../components/subpages/me/me.vue"
 import Page_MYProfile from "../components/subpages/me/me_profile.vue"
+import Page_MYFollow from "../components/subpages/me/me_follow/me_follow.vue"
 import Page_MYPost from "../components/subpages/me/me_post.vue"
 import Page_MYBookmark from "../components/subpages/me/me_bookmark.vue"
 
@@ -44,6 +45,7 @@ const router = createRouter({
             component: Page_ME,
             children:[
                 {path:'profile', component: Page_MYProfile},
+                {path:'follow', component: Page_MYFollow},
                 {path:'post', component: Page_MYPost},
                 {path:'bookmark', component: Page_MYBookmark},
                 {path:'reply', 

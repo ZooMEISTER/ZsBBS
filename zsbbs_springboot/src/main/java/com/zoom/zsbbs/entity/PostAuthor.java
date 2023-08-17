@@ -15,6 +15,10 @@ public class PostAuthor {
     private int userpostcount;
     private int userreplycount;
     private String description;
+    //关注该用户的用户数
+    private int follower;
+    //该用户关注的用户数
+    private int followto;
 
     public int getUserid() {
         return userid;
@@ -42,6 +46,14 @@ public class PostAuthor {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getFollower() {
+        return follower;
+    }
+
+    public int getFollowto() {
+        return followto;
     }
 
     public void setUserid(int userid) {
@@ -72,6 +84,14 @@ public class PostAuthor {
         this.description = description;
     }
 
+    public void setFollower(int follower) {
+        this.follower = follower;
+    }
+
+    public void setFollowto(int followto) {
+        this.followto = followto;
+    }
+
     @Override
     public String toString() {
         return "PostAuthor{" +
@@ -82,6 +102,8 @@ public class PostAuthor {
                 ", userpostcount=" + userpostcount +
                 ", userreplycount=" + userreplycount +
                 ", description='" + description + '\'' +
+                ", follower=" + follower +
+                ", followto=" + followto +
                 '}';
     }
 }
