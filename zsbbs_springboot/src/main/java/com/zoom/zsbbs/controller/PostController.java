@@ -1,6 +1,10 @@
 package com.zoom.zsbbs.controller;
 
 import com.zoom.zsbbs.entity.*;
+import com.zoom.zsbbs.entity.show.BookmarkShow;
+import com.zoom.zsbbs.entity.show.PostShow;
+import com.zoom.zsbbs.entity.show.ReplyShow;
+import com.zoom.zsbbs.entity.show.SubReplyShow;
 import com.zoom.zsbbs.exception.PostResultCode;
 import com.zoom.zsbbs.param.PostResult;
 import com.zoom.zsbbs.service.PostService;
@@ -264,8 +268,8 @@ public class PostController {
     //http://localhost:8088/post/query/replybypagenum
     @RequestMapping(value = "/query/replybypagenum", method = RequestMethod.POST)
     public ReplyShow queryReplyAtPagenumByReplypostid(@RequestParam("pagenum") int pagenum,
-                                                        @RequestParam("pagesize") int pagesize,
-                                                        @RequestParam("replypostid") int replypostid){
+                                                      @RequestParam("pagesize") int pagesize,
+                                                      @RequestParam("replypostid") int replypostid){
         return new ReplyShow(replyService.getReplyCountByPostid(replypostid), replyService.queryReplyAtPagenumByReplypostid(pagenum, pagesize, replypostid));
     }
 

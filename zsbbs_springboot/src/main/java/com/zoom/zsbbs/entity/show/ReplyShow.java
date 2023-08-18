@@ -1,4 +1,6 @@
-package com.zoom.zsbbs.entity;
+package com.zoom.zsbbs.entity.show;
+
+import com.zoom.zsbbs.entity.Reply;
 
 import java.util.List;
 

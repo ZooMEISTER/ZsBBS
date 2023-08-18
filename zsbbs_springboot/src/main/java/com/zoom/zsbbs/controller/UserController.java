@@ -2,10 +2,9 @@ package com.zoom.zsbbs.controller;
 
 import cn.hutool.crypto.SecureUtil;
 import com.zoom.zsbbs.entity.Follow;
-import com.zoom.zsbbs.entity.FollowShow;
+import com.zoom.zsbbs.entity.show.FollowShow;
 import com.zoom.zsbbs.entity.PostAuthor;
 import com.zoom.zsbbs.entity.User;
-import com.zoom.zsbbs.mapper.FollowMapper;
 import com.zoom.zsbbs.service.UserService;
 import com.zoom.zsbbs.utils.JWTUtils;
 import com.zoom.zsbbs.param.LoginResult;

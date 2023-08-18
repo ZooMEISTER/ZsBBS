@@ -1,10 +1,12 @@
-package com.zoom.zsbbs.entity;
+package com.zoom.zsbbs.entity.show;
 
 /*
  *    Created by ZooMEISTER
  *    on 2023/6/27 0:15
  *
  */
+
+import com.zoom.zsbbs.entity.SubReply;
 
 import java.util.List;
 

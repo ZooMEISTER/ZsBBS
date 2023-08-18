@@ -1,8 +1,10 @@
-package com.zoom.zsbbs.entity;/*
+package com.zoom.zsbbs.entity.show;/*
  *    Created by ZooMEISTER
  *    on 2023/8/17 22:01
  *
  */
+
+import com.zoom.zsbbs.entity.Follow;
 
 import java.util.List;
 
