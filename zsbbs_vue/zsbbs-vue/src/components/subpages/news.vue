@@ -126,6 +126,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 gsap.registerPlugin(ScrollTrigger)
 
 export default {
+    mounted(){
+
+    },
     data(){
         return{
             
@@ -215,7 +218,7 @@ export default {
 .Screen_3{
     width: 100%;
     height: 100vh;
-    background: pink;
+    background: rgb(158, 255, 195);
     position: absolute;
 }
 

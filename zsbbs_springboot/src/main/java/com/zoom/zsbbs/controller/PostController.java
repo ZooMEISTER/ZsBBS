@@ -411,4 +411,9 @@ public class PostController {
         return new BookmarkShow(postService.getAllBookmarkedPostCountByUserid(userid), postService.queryAllBookmarkedPostByUserid(userid, pagenum, pagesize));
     }
 
+    //将目标帖子的访问次数加1
+    @RequestMapping(value = "/addvisitcount", method = RequestMethod.POST)
+    public int addVisitCountByPostid(@RequestParam("postid") int postid){
+        return postService.addVisitCountByPostid(postid);
+    }
 }

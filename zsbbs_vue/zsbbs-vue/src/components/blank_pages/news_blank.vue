@@ -16,7 +16,7 @@ export default {
         
     },
     mounted(){
-        
+
     },
     methods:{
         toTop() {

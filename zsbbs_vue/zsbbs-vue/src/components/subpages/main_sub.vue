@@ -22,7 +22,7 @@
                         <br>
                         想使用论坛相关功能，请先右上角登录 <br>
                         <br>
-                        前端：Vue 3 + VueX + VueRouter + GSAP + Element UI <br>
+                        前端：Vue 3 + VueX + VueRouter + GSAP + Element Plus <br>
                         后端：Springboot + Mybatis Plus + Mysql <br>
                         开发工具：VSCode + Idea + Navicat <br>
                         部署：阿里云ECS + CentOS + Nginx <br>
@@ -45,6 +45,12 @@ import axios from 'axios'
 export default {
     created(){
         //console.log(typeof(msg))
+    },
+    mounted(){
+
+    },
+    props:{
+        
     },
     data(){
         return{

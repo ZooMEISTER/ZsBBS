@@ -70,4 +70,6 @@ public interface PostService {
 
     int getAllBookmarkedPostCountByUserid(int userid);
     List<Bookmark> queryAllBookmarkedPostByUserid(int userid, int pagenum, int pagesize);
+
+    int addVisitCountByPostid(int postid);
 }

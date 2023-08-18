@@ -17,11 +17,16 @@ import VueCookies from 'vue-cookies'
 import vuescroll from 'vuescroll';
 
 import './layout/breadcrumb.css'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 //axios.defaults.baseURL = "http://47.97.8.13:8088"
 axios.defaults.baseURL = "http://localhost:8088"
 
 const app = createApp(App)
+
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component)
+}
 
 app.config.globalProperties.$cookies = VueCookies
 app.use(ElementPlus)

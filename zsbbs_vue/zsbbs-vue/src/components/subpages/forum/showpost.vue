@@ -14,6 +14,8 @@
             :p_maxfloor="spost.maxfloor"
             :p_latestreplytime="spost.latestreplytime"
             :p_containimage="spost.containimage"
+            :p_visitcount="spost.visitcount"
+            :p_bookmarkcount="spost.bookmarkcount"
         />
     </div>
     <div v-else>
@@ -27,6 +29,8 @@
             :p_content="spost.bookmarkpostcontent"
             :p_authorid="spost.bookmarkpostauthorid"
             :p_bookmarktime="spost.bookmarktime"
+            :p_visitcount="spost.visitcount"
+            :p_bookmarkcount="spost.bookmarkcount"
         />
     </div>
 

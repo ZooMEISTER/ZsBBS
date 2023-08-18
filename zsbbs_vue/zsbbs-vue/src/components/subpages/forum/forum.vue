@@ -13,7 +13,7 @@
 
             <div style="display: flex; flex-direction: row; margin: auto;">
                 <el-text type="primary">浏览排序依据:&nbsp;&nbsp;</el-text>
-                <el-select v-model="name_sortby" placeholder="Select" size="large" @change="changeSelectSortby($event)">
+                <el-select v-model="name_sortby" placeholder="Select" size="large" @change="changeSelectSortby($event)" >
                     <el-option
                         v-for="item in sortby"
                         :key="item.value"
@@ -54,7 +54,7 @@
     <el-button class="btn_addPost" type="primary" size="large" @click="addNewPost">发帖</el-button>
 
     <!-- 回到顶部按钮 -->
-    <el-backtop :right="220" :bottom="150" />
+    <el-backtop/>
 
 
 
@@ -121,6 +121,9 @@ export default {
     created(){
         
     },
+    mounted(){
+
+    },
     methods:{
         //添加新的post
         addNewPost(){
@@ -168,11 +171,11 @@ export default {
 
 <style>
 .btn_addPost {
-  position: fixed;
-  top: 120px;
-  right: 100px;
-  right: 200px;
   width: 75px;
   height: 75px;
+
+  position: fixed;
+  top: 125px;
+  right: 10vw;
 }
 </style>

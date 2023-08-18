@@ -1,9 +1,9 @@
 <template>
   <div>
     <el-menu
-    default-active="/zsbbs/main"
     class="el-menu"
     mode="horizontal"
+	:default-active="$route.path"
     :ellipsis="false"
 	:router='true'
     @select="handleSelect"
@@ -11,14 +11,29 @@
 	ref="menuRef"
     >
 		<div style="width:20px"/>
-		<el-menu-item index="/zsbbs/main" style="height:100%">主页</el-menu-item>
-		<el-menu-item index="/zsbbs/news_blank" style="height:100%">ZooMEISTER</el-menu-item>
-		<el-menu-item index="/zsbbs/forum" style="height:100%">论坛</el-menu-item>
+		<el-menu-item index="/zsbbs/main" style="height:100%">
+
+			<el-icon><HomeFilled /></el-icon>
+			<span>主页</span>
+
+		</el-menu-item>
+		<el-menu-item index="/zsbbs/news_blank" style="height:100%">
+
+			<el-icon><Avatar /></el-icon>
+			<span>ZooMEISTER</span>
+
+		</el-menu-item>
+		<el-menu-item index="/zsbbs/forum" style="height:100%">
+
+			<el-icon><Management /></el-icon>
+			<span>论坛</span>
+
+		</el-menu-item>
 		<div class="flex-grow" />
 
 		<div v-if="p_userid != -1" style="margin:auto">
 			<el-text style="margin:auto;text-align:center;" type="primary" size="large">欢迎 ! </el-text>
-			<el-text style="margin:auto" type="success" size="large">{{p_username}}</el-text>
+			<el-link style="margin:auto; font-size: 18px;" type="success" @click="showUserInfo">{{p_username}}</el-link>
 		</div>
 		<div style="width:20px"/>
 		<div v-if="p_userid != -1" style="margin:auto">
@@ -26,7 +41,10 @@
 		</div>
 
 		<el-sub-menu index="4" style="height:100%">
-			<template #title>我</template>
+			<template #title>
+				<!-- <el-icon><Avatar /></el-icon> -->
+				<span>我</span>
+			</template>
 			<div v-if="p_usertype === -1">
 				<el-menu-item index="/zsbbs/me/login">登录</el-menu-item>
 				<el-menu-item index="/zsbbs/me/register">注册</el-menu-item>
@@ -50,18 +68,29 @@
 		</el-sub-menu>
 		<div style="width:20px"/>
     </el-menu>
+
+	<!-- 用户信息弹窗 -->
+	<Comp_UserInfoForm v-if="showUserInfoForm" ref="uIF" :p_targetuserid="$store.state.s_userid"></Comp_UserInfoForm>
   </div>
+
+  	
 </template>
 
 <script>
+import Comp_UserInfoForm from "./user_info_form.vue"
 import { ElMessage, ElMessageBox } from 'element-plus'
 import {ref} from 'vue'
 
 
 export default{
+	components:{
+        Comp_UserInfoForm,
+    },
 	mounted(){
 		this.menuRef = document.getElementById('menuRef')
 		console.log(this.menuRef)
+
+		
 	},
 	props: { 
 		p_userid: Number,
@@ -69,6 +98,8 @@ export default{
 		p_usertype: Number,
 		p_username: String,
 		p_password: String
+
+		// p_activeIndex: String
 	},
   	data(){
 		return{
@@ -79,6 +110,8 @@ export default{
 			password: "",
 
 			menuRef: "",
+
+			showUserInfoForm: false,
 		}
 	},
 	methods: {
@@ -120,6 +153,15 @@ export default{
                         //this.$message.info('cancel logout')
                     })
 		},
+
+		//弹出弹窗，展示用户基本信息
+        showUserInfo(){
+            console.log("show user info")
+            this.showUserInfoForm = true
+            this.$nextTick(() => {
+                this.$refs.uIF.init();          
+            });
+        }
 		// handleSelect(key, keypath){
 		// 	if(key == "logout"){
 				

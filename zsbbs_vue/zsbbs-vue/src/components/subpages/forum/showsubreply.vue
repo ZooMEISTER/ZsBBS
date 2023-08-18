@@ -1,11 +1,19 @@
 <template>
     <div v-if="allsubreply.length > 0" style="width: 100%">
         <div style="height: 10px;"/>
-        <el-collapse style="backround-color: rgb(250,250,250);">
-            <el-collapse-item title="查看回复" name="1" >
-                
 
-                <el-card shadow="naver" style="width: 95%; margin: auto;">
+        <el-card shadow="never">
+
+            <el-collapse class="CollapseBoard">
+                <el-collapse-item class="CollapseBoardItem">
+                    <template #title>
+                        <text style="font-size: 20px;">
+                            &nbsp;
+                            查看回复
+                            ({{totalCount}})
+                        </text>
+                    </template>
+                
                     <div style="display: flex; flex-direction: column;"
                         v-for="(ssubreply, index) in allsubreply" 
                         :key="ssubreply.subreplyid"
@@ -29,24 +37,21 @@
                     <div style="height: 5px;"/>
 
                     <el-pagination
-                            :small="small"
-                            :disabled="disabled"
-                            :background="background"
-                            layout="prev, pager, next, jumper"
-                            :page-size="pagesize"
-                            :total="totalCount"
-                            @size-change="handleSizeChange"
-                            @current-change="handleCurrentChange"
-                            :current-page="currentPage"
-                        />
-                </el-card>
+                        :small="small"
+                        :disabled="disabled"
+                        :background="background"
+                        layout="prev, pager, next, jumper"
+                        :page-size="pagesize"
+                        :total="totalCount"
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="currentPage"
+                    />
 
-
-
-            </el-collapse-item>
-        </el-collapse>
+                </el-collapse-item>
+            </el-collapse>
         <!-- <el-divider /> -->
-        
+        </el-card>
     </div>
 
 </template>
@@ -110,5 +115,12 @@ export default {
 </script>
 
 <style>
-
+.CollapseBoard{
+    width: 100%;
+    margin: auto;
+    background: blue;
+}
+.CollapseBoardItem{
+    background: green;
+}
 </style>

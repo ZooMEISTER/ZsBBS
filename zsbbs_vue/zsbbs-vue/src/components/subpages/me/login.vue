@@ -1,6 +1,6 @@
 <template>
     <div style="height: 100px;"/>
-    <el-card style="width: 30%; margin: auto;">
+    <el-card style="width: 600px; margin: auto;">
         <template #header>
             <div>
                 <h1>登录</h1>

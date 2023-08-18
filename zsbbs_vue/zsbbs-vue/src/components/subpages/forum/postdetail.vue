@@ -156,7 +156,7 @@
     </el-dialog>
 
     <!-- 回到顶部按钮 -->
-    <el-backtop :right="200" :bottom="200" />
+    <el-backtop/>
 
     <!-- 用户信息弹窗 -->
     <Comp_UserInfoForm v-if="showUserInfoForm" ref="uIF" :p_targetuserid="authorid"></Comp_UserInfoForm>
@@ -667,11 +667,11 @@ export default {
 }
 
 .btn_addReply {
-  position: fixed;
-  top: 120px;
-  right: 100px;
-  right: 200px;
   width: 75px;
   height: 75px;
+
+  position: fixed;
+  top: 125px;
+  right: 10vw;
 }
 </style>

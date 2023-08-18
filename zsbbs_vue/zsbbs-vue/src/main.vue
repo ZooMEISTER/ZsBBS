@@ -1,6 +1,6 @@
 <template>
     <div style="z-index: 10">
-        <TopNavigateBar style="position: fixed; top: 0px; left: 0px; width: 100%; z-index: 100"
+        <TopNavigateBar class="TopNavigateBar"
             :p_userid="this.$store.state.s_userid"
             :p_avatar="this.$store.state.s_avatar"
             :p_usertype="this.$store.state.s_usertype"
@@ -43,6 +43,9 @@ export default {
             userreplycount: 0,
             description: "",
             token: "",
+
+            //当前激活的路由路径
+            activeIndex: "",
         }
     },
     methods:{
@@ -114,7 +117,17 @@ export default {
                 //不执行自动登录
 
             }
-        }
+        },
     }
 }
 </script>
+
+<style>
+.TopNavigateBar{
+    position: fixed; 
+    top: 0px; 
+    left: 0px; 
+    width: 100%; 
+    z-index: 100;
+}
+</style>

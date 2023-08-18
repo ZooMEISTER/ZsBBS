@@ -1,5 +1,5 @@
 <template>
-    <div style="height: 5px"/>
+    <div style="height: 15px"/>
     <div style="display: flex; flex-direction: row; width: 100%;">
         <div  style="width: 7%;">
             <el-avatar :size="50" :src="subreplyauthoravatar" style="align-self: center;"/>

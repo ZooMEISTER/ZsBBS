@@ -226,4 +226,9 @@ public class PostServiceImpl implements PostService {
         return bookmarkMapper.queryAllBookmarkedPostByUserid(userid, startnum, pagesize);
     }
 
+    @Override
+    public int addVisitCountByPostid(int postid) {
+        return postMapper.addVisitCountByPostid(postid);
+    }
+
 }

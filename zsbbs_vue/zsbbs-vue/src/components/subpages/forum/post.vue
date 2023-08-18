@@ -11,7 +11,6 @@
                 </div>
                 <!-- 帖子的次要信息 -->
                 <div style="display:flex; flex-direction:column; width:30%; height: 100%; margin:auto;">
-                    <div style="height: 20px;"></div>
                     <el-text class="replycount" type="info">回复数: {{p_replycount}}</el-text>
                     <div style="height: 10px;"></div>
                     <el-text class="replycount" type="info">
@@ -23,8 +22,9 @@
                     </el-text>
                     <div style="height: 10px;"></div>
                     <el-text class="replycount" type="info">发布于:&nbsp;&nbsp;{{p_publishtime}}</el-text>
-                    <div style="height: 10px;"></div>
                     <el-text class="replycount" type="info">回复于:&nbsp;&nbsp;{{p_latestreplytime}}</el-text>
+                    <el-text class="replycount" type="info">访问次数:&nbsp;&nbsp;{{p_visitcount}}</el-text>
+                    <el-text class="replycount" type="info">收藏次数:&nbsp;&nbsp;{{p_bookmarkcount}}</el-text>
                     <!-- <div style="height: 10px;"></div>
                     <el-text class="replycount" type="info">Max Floor:&nbsp;&nbsp;{{p_maxfloor}}</el-text> -->
                 </div>
@@ -184,6 +184,7 @@ export default {
         //0 是显示广场上的所有帖子  1 表示是用户发的帖子  2 表示是搜索出来的帖子  3表示是收藏的帖子
         p_postType: Number, 
 
+        //帖子相关信息
         p_index: Number,
         p_postid: Number,
         p_title: String,
@@ -196,6 +197,10 @@ export default {
         p_containimage: Number,
 
         p_bookmarktime: String,
+
+        //帖子的访问次数和收藏次数
+        p_visitcount: Number,
+        p_bookmarkcount: Number
     },
     data(){
         return{
@@ -209,6 +214,27 @@ export default {
         seePostDetail(){
             console.log(this.p_postid + "  " + this.p_title)
             //this.$message.success(this.p_postid + "  " + this.p_title)
+
+            //给后端发送一个请求 让该帖子的访问次数加 1 （p_postid）
+            var addVisitCountParam = new URLSearchParams
+
+            addVisitCountParam.append("postid", this.p_postid)
+            var _this = this
+
+            //更改用户头像请求
+            axios.post('/post/addvisitcount', 
+                addVisitCountParam
+            )
+            .then(function (response) {
+                
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+
+
 
             if(this.p_postType != 4){
                 this.$router.push({ 

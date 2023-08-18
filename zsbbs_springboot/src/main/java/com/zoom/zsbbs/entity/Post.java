@@ -32,6 +32,9 @@ public class Post {
     private Date latestreplytime;
     private int containimage;
 
+    private int visitcount;
+    private int bookmarkcount;
+
     public int getPostid() {
         return postid;
     }
@@ -66,6 +69,14 @@ public class Post {
 
     public int getContainimage() {
         return containimage;
+    }
+
+    public int getVisitcount() {
+        return visitcount;
+    }
+
+    public int getBookmarkcount() {
+        return bookmarkcount;
     }
 
     public void setPostid(int postid) {
@@ -105,6 +116,14 @@ public class Post {
         this.containimage = containimage;
     }
 
+    public void setVisitcount(int visitcount) {
+        this.visitcount = visitcount;
+    }
+
+    public void setBookmarkcount(int bookmarkcount) {
+        this.bookmarkcount = bookmarkcount;
+    }
+
     public Post() {
     }
 
@@ -128,6 +147,8 @@ public class Post {
                 ", maxfloor=" + maxfloor +
                 ", latestreplytime=" + latestreplytime +
                 ", containimage=" + containimage +
+                ", visitcount=" + visitcount +
+                ", bookmarkcount=" + bookmarkcount +
                 '}';
     }
 }

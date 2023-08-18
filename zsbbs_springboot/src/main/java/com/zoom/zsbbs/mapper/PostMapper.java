@@ -5,6 +5,7 @@ import com.zoom.zsbbs.entity.Post;
 import com.zoom.zsbbs.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -75,4 +76,6 @@ public interface PostMapper extends BaseMapper<Post> {
     @Select("SELECT * FROM sys_post WHERE authorid=#{userid} ORDER BY publishtime DESC LIMIT #{startnum},#{pagesize}")
     List<Post> queryAllPostAtPagenumByPublishtimeInDescByUserid(int startnum, int pagesize, int userid);
 
+    @Update("UPDATE sys_post SET visitcount=visitcount+1 WHERE postid=#{postid}")
+    int addVisitCountByPostid(int postid);
 }
