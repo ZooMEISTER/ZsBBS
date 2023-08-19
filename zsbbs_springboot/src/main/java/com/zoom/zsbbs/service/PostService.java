@@ -3,6 +3,7 @@ package com.zoom.zsbbs.service;
 import com.zoom.zsbbs.entity.Bookmark;
 import com.zoom.zsbbs.entity.Post;
 import com.zoom.zsbbs.entity.Reply;
+import com.zoom.zsbbs.entity.Section;
 import com.zoom.zsbbs.param.PostResult;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,26 +18,26 @@ import java.util.List;
 
 @Service
 public interface PostService {
-    int getAllPostCount();
+    int getAllPostCount(int sectionid);
     int getAllPostCountByUserid(int userid);
 
 
     List<Post> queryAllPost();
 
-    List<Post> searchPost(String searchby, int pagenum, int pagesize);
-    int getSearchPostCount(String searchby);
+    List<Post> searchPost(String searchby, int sectionid, int pagenum, int pagesize);
+    int getSearchPostCount(String searchby, int sectionid);
 
 
-    List<Post> queryAllPostByLatestreplytimeInAsc();
-    List<Post> queryAllPostByLatestreplytimeInDesc();
-    List<Post> queryAllPostAtPagenumByLatestreplytimeInAsc(int pagenum, int pagesize);
-    List<Post> queryAllPostAtPagenumByLatestreplytimeInDesc(int pagenum, int pagesize);
+    List<Post> queryAllPostByLatestreplytimeInAsc(int sectionid);
+    List<Post> queryAllPostByLatestreplytimeInDesc(int sectionid);
+    List<Post> queryAllPostAtPagenumByLatestreplytimeInAsc(int pagenum, int pagesize, int sectionid);
+    List<Post> queryAllPostAtPagenumByLatestreplytimeInDesc(int pagenum, int pagesize, int sectionid);
 
 
-    List<Post> queryAllPostByPublishtimeInAsc();
-    List<Post> queryAllPostByPublishtimeInDesc();
-    List<Post> queryAllPostAtPagenumByPublishtimeInAsc(int pagenum, int pagesize);
-    List<Post> queryAllPostAtPagenumByPublishtimeInDesc(int pagenum, int pagesize);
+    List<Post> queryAllPostByPublishtimeInAsc(int sectionid);
+    List<Post> queryAllPostByPublishtimeInDesc(int sectionid);
+    List<Post> queryAllPostAtPagenumByPublishtimeInAsc(int pagenum, int pagesize, int sectionid);
+    List<Post> queryAllPostAtPagenumByPublishtimeInDesc(int pagenum, int pagesize, int sectionid);
 
 
 
@@ -72,4 +73,8 @@ public interface PostService {
     List<Bookmark> queryAllBookmarkedPostByUserid(int userid, int pagenum, int pagesize);
 
     int addVisitCountByPostid(int postid);
+
+    List<Section> queryAllSection();
+
+    Section querySingleSection(int sectionid);
 }

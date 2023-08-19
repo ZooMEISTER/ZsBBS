@@ -2,8 +2,11 @@
     <div style="height: 10px;"/>
     <div style="display: flex; flex-direction: row; width: 70%; margin: auto;">
         <el-breadcrumb class="breadscrumb_1">
-            <el-breadcrumb-item :to="{ path: '/zsbbs/forum' }">
+            <el-breadcrumb-item :to="{ path: '/zsbbs/forum/section' }">
                 <h2>论坛</h2>
+            </el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/zsbbs/forum/forum_sub', query: { sectionid: this.sectionid}}">
+                <h2>{{sectionname}}</h2>
             </el-breadcrumb-item>
             <el-breadcrumb-item :to="{ path: '/zsbbs/forum/postdetail' }">
                 <h2>帖子详情</h2>
@@ -164,8 +167,8 @@
 
 <script>
 import axios from 'axios'
-import Comp_SingleReply from "./reply.vue"
-import Comp_UserInfoForm from "../../user_info_form.vue"
+import Comp_SingleReply from "../reply/reply.vue"
+import Comp_UserInfoForm from "../../../user_info_form.vue"
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { faL } from '@fortawesome/free-solid-svg-icons'
 
@@ -215,6 +218,9 @@ export default {
             dialogImageUrl: "",
 
             showUserInfoForm: false,
+
+            sectionid: 0,
+            sectionname: "",
         }
     },
     methods:{
@@ -227,8 +233,11 @@ export default {
             // this.content = this.$route.query.content,
             // this.replycount = this.$route.query.replycount,
             this.authorid = this.$route.query.authorid
+            this.sectionid = this.$route.query.sectionid
+            //console.log("sectionid  " + this.sectionid)
             // this.publishtime = this.$route.query.publishtime
             // this.containimage = this.$route.query.containimage
+
 
             //获取作者数据
             var queryAuthorParam = new URLSearchParams
@@ -249,6 +258,7 @@ export default {
                 console.log(error);
             });
 
+
             //获取帖子数据
             var queryPostParam = new URLSearchParams
 
@@ -264,6 +274,9 @@ export default {
                 _this.replycount = response.data.replycount,
                 _this.publishtime = response.data.publishtime
                 _this.containimage = response.data.containimage
+                _this.sectionid = response.data.sectionid
+
+                _this.getSectionInfo()
 
                 //获取帖子一楼的图片
                 _this.getContainImage()
@@ -305,20 +318,40 @@ export default {
                     console.log(error);
                 });
             }
-            
-
-
-
+        
 
             // //把\\n换成\n
             // this.content = this.content.replace(/\\n/gm,"\n");
             // //this.$message.success(this.postid)
     
         },
+        getSectionInfo(){
+            //获取section数据
+            var querySingleSectionParam = new URLSearchParams
+            var _this = this
+
+            //console.log("sectionid  " + this.sectionid)
+            querySingleSectionParam.append("sectionid", this.sectionid)
+
+            //获取该section的信息
+            axios.post('/post/query/singlesection', 
+                    querySingleSectionParam
+                )
+                .then(function (response) {
+
+                    _this.sectionname = response.data.sectionname
+
+                    console.log(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
         updateReply(){
             //更新用户回复
             this.postid = this.$route.query.postid
             this.authorid = this.$route.query.authorid
+            this.sectionid = this.$route.query.sectionid
 
             //获取作者数据
             var queryAuthorParam = new URLSearchParams
@@ -361,6 +394,20 @@ export default {
             .catch(function (error) {
                 console.log(error);
             });
+
+            //获取该section的信息
+            axios.post('/post/query/singlesection', 
+                    querySingleSectionParam
+                )
+                .then(function (response) {
+
+                    _this.sectionname = response.data.sectionname
+
+                    console.log(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
 
             //重新获取回复列表
             this.getAllReply()
@@ -548,6 +595,7 @@ export default {
                     addBookmarkParam.append("bookmarkpostcontent", this.content)
                     addBookmarkParam.append("bookmarkpostauthorid", this.authorid)
                     addBookmarkParam.append("bookmarkby", this.$store.state.s_userid)
+                    addBookmarkParam.append("bookmarkpostsectionid", this.sectionid)
                     var _this = this
 
 

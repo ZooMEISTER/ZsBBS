@@ -35,6 +35,8 @@ public class Post {
     private int visitcount;
     private int bookmarkcount;
 
+    private int sectionid;
+
     public int getPostid() {
         return postid;
     }
@@ -77,6 +79,10 @@ public class Post {
 
     public int getBookmarkcount() {
         return bookmarkcount;
+    }
+
+    public int getSectionid() {
+        return sectionid;
     }
 
     public void setPostid(int postid) {
@@ -124,6 +130,10 @@ public class Post {
         this.bookmarkcount = bookmarkcount;
     }
 
+    public void setSectionid(int sectionid) {
+        this.sectionid = sectionid;
+    }
+
     public Post() {
     }
 
@@ -149,6 +159,7 @@ public class Post {
                 ", containimage=" + containimage +
                 ", visitcount=" + visitcount +
                 ", bookmarkcount=" + bookmarkcount +
+                ", sectionid=" + sectionid +
                 '}';
     }
 }

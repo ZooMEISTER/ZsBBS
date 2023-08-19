@@ -23,6 +23,7 @@ public class Bookmark {
     private int bookmarkpostauthorid;
     private int bookmarkby;
     private Date bookmarktime;
+    private int bookmarkpostsectionid;
 
     public int getBookmarkid() {
         return bookmarkid;
@@ -50,6 +51,10 @@ public class Bookmark {
 
     public Date getBookmarktime() {
         return bookmarktime;
+    }
+
+    public int getBookmarkpostsectionid() {
+        return bookmarkpostsectionid;
     }
 
     public void setBookmarkid(int bookmarkid) {
@@ -80,6 +85,10 @@ public class Bookmark {
         this.bookmarktime = bookmarktime;
     }
 
+    public void setBookmarkpostsectionid(int bookmarkpostsectionid) {
+        this.bookmarkpostsectionid = bookmarkpostsectionid;
+    }
+
     @Override
     public String toString() {
         return "Bookmark{" +
@@ -90,6 +99,7 @@ public class Bookmark {
                 ", bookmarkpostauthorid=" + bookmarkpostauthorid +
                 ", bookmarkby=" + bookmarkby +
                 ", bookmarktime=" + bookmarktime +
+                ", bookmarkpostsectionid=" + bookmarkpostsectionid +
                 '}';
     }
 }

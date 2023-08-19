@@ -99,12 +99,14 @@ export default {
                     }
                     else if(response.data.code == 10001){
                         _this.$message.error("用户不存在")
+                        this.$cookies.remove("zsbbsLoginToken")
                     }
                     else if(response.data.code == 10002){
                         _this.$message.error("密码错误")
                     }
                     else if(response.data.code == 10005){
                         _this.$message.error("TOKEN已过期")
+                        this.$cookies.remove("zsbbsLoginToken")
                     }
                     console.log(response);
                 })

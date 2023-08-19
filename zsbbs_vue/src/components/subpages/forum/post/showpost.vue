@@ -5,6 +5,7 @@
 
             :p_index="index"
             :key="spost.postid" 
+
             :p_postid="spost.postid"
             :p_title="spost.title"
             :p_content="spost.content"
@@ -16,6 +17,7 @@
             :p_containimage="spost.containimage"
             :p_visitcount="spost.visitcount"
             :p_bookmarkcount="spost.bookmarkcount"
+            :p_sectionid="spost.sectionid"
         />
     </div>
     <div v-else>
@@ -24,6 +26,7 @@
 
             :p_index="index"
             :key="spost.bookmarkid" 
+
             :p_postid="spost.bookmarkpostid"
             :p_title="spost.bookmarkposttitle"
             :p_content="spost.bookmarkpostcontent"
@@ -31,6 +34,7 @@
             :p_bookmarktime="spost.bookmarktime"
             :p_visitcount="spost.visitcount"
             :p_bookmarkcount="spost.bookmarkcount"
+            :p_sectionid="spost.bookmarkpostsectionid"
         />
     </div>
 
@@ -84,6 +88,9 @@ export default {
         p_searchby: String,
 
         p_targetUserId: Number,
+
+        //要显示的板块id
+        p_sectionid: Number
     },
     data(){
         return{
@@ -129,6 +136,15 @@ export default {
                 queryPostParam.append("pagesize", this.pageSize)
                 queryPostParam.append("userid", this.$store.state.s_userid)
 
+                if(this.p_postType == 1){ 
+                    queryPostParam.append("sectionid", 0)
+                }
+                else{
+                    queryPostParam.append("sectionid", this.p_sectionid)
+                }
+                
+
+                // console.log("this.p_sectionid" + this.p_sectionid)
 
                 
                 axios.post("/post/queryallpost", queryPostParam)
@@ -149,9 +165,13 @@ export default {
                 var _this = this
                 var querySearchPostParam = new URLSearchParams
 
+                console.log("searchby " + this.p_searchby + "    this.p_sectionid " + this.p_sectionid)
+                console.log("pagenum " + this.currentPage + "    pagesize " + this.pageSize)
+
                 querySearchPostParam.append("searchby", this.p_searchby)
                 querySearchPostParam.append("pagenum", this.currentPage) //查询的页码 0 为全部 > 0 为对应页数
                 querySearchPostParam.append("pagesize", this.pageSize)
+                querySearchPostParam.append("sectionid", this.p_sectionid)
 
                 axios.post("/post/searchpost", querySearchPostParam)
                 .then(function (response) {
@@ -206,6 +226,7 @@ export default {
                 queryPostParam.append("pagenum", this.currentPage) //查询的页码 0 为全部 > 0 为对应页数
                 queryPostParam.append("pagesize", this.pageSize)
                 queryPostParam.append("userid", this.p_targetUserId)
+                queryPostParam.append("sectionid", 0)
 
 
                 

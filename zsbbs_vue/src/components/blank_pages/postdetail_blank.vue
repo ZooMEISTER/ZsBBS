@@ -10,6 +10,7 @@ export default {
     created(){
         this.postid = this.$route.query.postid
         this.authorid = this.$route.query.authorid
+        this.sectionid = this.$route.query.sectionid
 
 
         //this.toTop()
@@ -21,6 +22,7 @@ export default {
 
                     postid: this.postid,
                     authorid: this.authorid,
+                    sectionid: this.sectionid
                     
                 }
             })
@@ -34,6 +36,7 @@ export default {
         return{
             postid: 0,
             authorid: 0,
+            sectionid: 0,
         }
     },
     methods:{

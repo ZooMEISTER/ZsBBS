@@ -38,7 +38,7 @@
 <script>
 import axios from 'axios'
 
-import Comp_ShowAllPost from "./subpages/forum/showpost.vue"
+import Comp_ShowAllPost from "./subpages/forum/post/showpost.vue"
 
 export default {
     components:{

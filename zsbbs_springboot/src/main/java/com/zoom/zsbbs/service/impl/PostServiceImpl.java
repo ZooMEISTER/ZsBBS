@@ -6,9 +6,11 @@ import com.google.gson.JsonParser;
 import com.zoom.zsbbs.entity.Bookmark;
 import com.zoom.zsbbs.entity.Post;
 import com.zoom.zsbbs.entity.Reply;
+import com.zoom.zsbbs.entity.Section;
 import com.zoom.zsbbs.mapper.BookmarkMapper;
 import com.zoom.zsbbs.mapper.PostMapper;
 import com.zoom.zsbbs.mapper.ReplyMapper;
+import com.zoom.zsbbs.mapper.SectionMapper;
 import com.zoom.zsbbs.param.PostResult;
 import com.zoom.zsbbs.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +33,12 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private BookmarkMapper bookmarkMapper;
 
+    @Autowired
+    private SectionMapper sectionMapper;
+
     @Override
-    public int getAllPostCount() {
-        return postMapper.getAllPostCount();
+    public int getAllPostCount(int sectionid) {
+        return postMapper.getAllPostCount(sectionid);
     }
 
     @Override
@@ -50,58 +55,58 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> searchPost(String searchby, int pagenum, int pagesize) {
+    public List<Post> searchPost(String searchby, int sectionid, int pagenum, int pagesize) {
         int startnum = (pagenum - 1) * pagesize;
-        return postMapper.searchPost(searchby, startnum, pagesize);
+        return postMapper.searchPost(searchby, sectionid, startnum, pagesize);
     }
 
     @Override
-    public int getSearchPostCount(String searchby) {
-        return postMapper.getSearchPostCount(searchby);
+    public int getSearchPostCount(String searchby, int sectionid) {
+        return postMapper.getSearchPostCount(searchby, sectionid);
     }
 
     @Override
-    public List<Post> queryAllPostByLatestreplytimeInAsc() {
-        return postMapper.queryAllPostByLatestreplytimeInAsc();
+    public List<Post> queryAllPostByLatestreplytimeInAsc(int sectionid) {
+        return postMapper.queryAllPostByLatestreplytimeInAsc(sectionid);
     }
 
     @Override
-    public List<Post> queryAllPostByLatestreplytimeInDesc() {
-        return postMapper.queryAllPostByLatestreplytimeInDesc();
+    public List<Post> queryAllPostByLatestreplytimeInDesc(int sectionid) {
+        return postMapper.queryAllPostByLatestreplytimeInDesc(sectionid);
     }
 
     @Override
-    public List<Post> queryAllPostAtPagenumByLatestreplytimeInAsc(int pagenum, int pagesize) {
+    public List<Post> queryAllPostAtPagenumByLatestreplytimeInAsc(int pagenum, int pagesize, int sectionid) {
         int startnum = (pagenum - 1) * pagesize;
-        return postMapper.queryAllPostAtPagenumByLatestreplytimeInAsc(startnum, pagesize);
+        return postMapper.queryAllPostAtPagenumByLatestreplytimeInAsc(startnum, pagesize, sectionid);
     }
 
     @Override
-    public List<Post> queryAllPostAtPagenumByLatestreplytimeInDesc(int pagenum, int pagesize) {
+    public List<Post> queryAllPostAtPagenumByLatestreplytimeInDesc(int pagenum, int pagesize, int sectionid) {
         int startnum = (pagenum - 1) * pagesize;
-        return postMapper.queryAllPostAtPagenumByLatestreplytimeInDesc(startnum, pagesize);
+        return postMapper.queryAllPostAtPagenumByLatestreplytimeInDesc(startnum, pagesize, sectionid);
     }
 
     @Override
-    public List<Post> queryAllPostByPublishtimeInAsc() {
-        return postMapper.queryAllPostByPublishtimeInAsc();
+    public List<Post> queryAllPostByPublishtimeInAsc(int sectionid) {
+        return postMapper.queryAllPostByPublishtimeInAsc(sectionid);
     }
 
     @Override
-    public List<Post> queryAllPostByPublishtimeInDesc() {
-        return postMapper.queryAllPostByPublishtimeInDesc();
+    public List<Post> queryAllPostByPublishtimeInDesc(int sectionid) {
+        return postMapper.queryAllPostByPublishtimeInDesc(sectionid);
     }
 
     @Override
-    public List<Post> queryAllPostAtPagenumByPublishtimeInAsc(int pagenum, int pagesize) {
+    public List<Post> queryAllPostAtPagenumByPublishtimeInAsc(int pagenum, int pagesize, int sectionid) {
         int startnum = (pagenum - 1) * pagesize;
-        return postMapper.queryAllPostAtPagenumByPublishtimeInAsc(startnum, pagesize);
+        return postMapper.queryAllPostAtPagenumByPublishtimeInAsc(startnum, pagesize, sectionid);
     }
 
     @Override
-    public List<Post> queryAllPostAtPagenumByPublishtimeInDesc(int pagenum, int pagesize) {
+    public List<Post> queryAllPostAtPagenumByPublishtimeInDesc(int pagenum, int pagesize, int sectionid) {
         int startnum = (pagenum - 1) * pagesize;
-        return postMapper.queryAllPostAtPagenumByPublishtimeInDesc(startnum, pagesize);
+        return postMapper.queryAllPostAtPagenumByPublishtimeInDesc(startnum, pagesize, sectionid);
     }
 
     @Override
@@ -229,6 +234,16 @@ public class PostServiceImpl implements PostService {
     @Override
     public int addVisitCountByPostid(int postid) {
         return postMapper.addVisitCountByPostid(postid);
+    }
+
+    @Override
+    public List<Section> queryAllSection() {
+        return sectionMapper.queryAllSection();
+    }
+
+    @Override
+    public Section querySingleSection(int sectionid) {
+        return sectionMapper.querySingleSection(sectionid);
     }
 
 }

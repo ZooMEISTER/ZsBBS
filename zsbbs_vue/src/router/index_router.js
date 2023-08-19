@@ -2,8 +2,10 @@ import {createRouter, createWebHistory} from 'vue-router'
 
 import Page_MAIN from "../components/subpages/main_sub.vue"
 import Page_Forum from "../components/subpages/forum/forum.vue"
+import Page_Section from "../components/subpages/forum/forum_section.vue"
+import Page_Forum_Sub from "../components/subpages/forum/forum_sub.vue"
 import Page_AddNewPost from "../components/subpages/forum/addnewpost.vue"
-import Page_PostDetail from "../components/subpages/forum/postdetail.vue"
+import Page_PostDetail from "../components/subpages/forum/post/postdetail.vue"
 import Page_PostDetail_Blank from "../components/blank_pages/postdetail_blank.vue"
 import Page_News from "../components/subpages/news.vue"
 import Page_News_Blank from "../components/blank_pages/news_blank.vue"
@@ -33,9 +35,16 @@ const router = createRouter({
         {path:'/', redirect: '/zsbbs/main'},
         {path:'/zsbbs/me/logout', redirect: '/zsbbs/main'},
         {path:'/zsbbs/main', component: Page_MAIN},
-        {path:'/zsbbs/forum', component: Page_Forum},
-        {path:'/zsbbs/forum/addnewpost', component: Page_AddNewPost},
-        {path:'/zsbbs/forum/postdetail', name: "postdetail", component: Page_PostDetail},
+        {path:'/zsbbs/forum', 
+            component: Page_Forum,
+            children:[
+                {path:'section', component:  Page_Section},
+                {path:'forum_sub', component:  Page_Forum_Sub},
+                {path:'addnewpost', component: Page_AddNewPost},
+                {path:'postdetail', component: Page_PostDetail},
+            ]
+        },
+        
         {path:'/zsbbs/postdetail_blank', component: Page_PostDetail_Blank},
         {path:'/zsbbs/news', component: Page_News},
         {path:'/zsbbs/news_blank', component: Page_News_Blank},

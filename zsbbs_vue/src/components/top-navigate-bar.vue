@@ -23,7 +23,7 @@
 			<span>ZooMEISTER</span>
 
 		</el-menu-item>
-		<el-menu-item index="/zsbbs/forum" style="height:100%">
+		<el-menu-item index="/zsbbs/forum/section" style="height:100%">
 
 			<el-icon><Management /></el-icon>
 			<span>论坛</span>

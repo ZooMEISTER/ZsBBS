@@ -77,7 +77,7 @@
 import axios from 'axios'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import Comp_showSubReply from "./showsubreply.vue"
-import Comp_UserInfoForm from "../../user_info_form.vue"
+import Comp_UserInfoForm from "../../../user_info_form.vue"
 
 export default {
     created(){

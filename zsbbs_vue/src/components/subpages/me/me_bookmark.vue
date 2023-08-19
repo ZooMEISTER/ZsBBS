@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import Comp_ShowAllPost from "../forum/showpost.vue"
+import Comp_ShowAllPost from "../forum/post/showpost.vue"
 
 export default {
     components:{

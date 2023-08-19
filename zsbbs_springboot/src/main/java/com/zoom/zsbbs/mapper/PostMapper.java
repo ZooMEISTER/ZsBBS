@@ -17,8 +17,8 @@ import java.util.List;
 
 @Mapper
 public interface PostMapper extends BaseMapper<Post> {
-    @Select("SELECT count(*) FROM sys_post")
-    public int getAllPostCount();
+    @Select("SELECT count(*) FROM sys_post WHERE sectionid=#{sectionid}")
+    public int getAllPostCount(int sectionid);
     @Select("SELECT count(*) FROM sys_post WHERE authorid=#{userid}")
     int getAllPostCountByUserid(int userid);
 
@@ -26,33 +26,33 @@ public interface PostMapper extends BaseMapper<Post> {
     @Select("SELECT * FROM sys_post")
     public List<Post> queryAllPost();
 
-    @Select("SELECT * FROM sys_post WHERE POSITION(#{searchby} IN title) ORDER BY publishtime DESC LIMIT #{startnum},#{pagesize}")
-    public List<Post> searchPost(String searchby, int startnum, int pagesize);
+    @Select("SELECT * FROM sys_post WHERE sectionid=#{sectionid} AND POSITION(#{searchby} IN title) ORDER BY publishtime DESC LIMIT #{startnum},#{pagesize}")
+    public List<Post> searchPost(String searchby, int sectionid, int startnum, int pagesize);
 
-    @Select("SELECT count(*) FROM sys_post WHERE POSITION(#{searchby} IN title)")
-    public int getSearchPostCount(String searchby);
-
-
+    @Select("SELECT count(*) FROM sys_post WHERE sectionid=#{sectionid} AND POSITION(#{searchby} IN title)")
+    public int getSearchPostCount(String searchby, int sectionid);
 
 
-    @Select("SELECT * FROM sys_post ORDER BY latestreplytime ASC")
-    public List<Post> queryAllPostByLatestreplytimeInAsc();
-    @Select("SELECT * FROM sys_post ORDER BY latestreplytime DESC")
-    public List<Post> queryAllPostByLatestreplytimeInDesc();
-    @Select("SELECT * FROM sys_post ORDER BY latestreplytime ASC LIMIT #{startnum},#{pagesize}")
-    public List<Post> queryAllPostAtPagenumByLatestreplytimeInAsc(int startnum, int pagesize);
-    @Select("SELECT * FROM sys_post ORDER BY latestreplytime DESC LIMIT #{startnum},#{pagesize}")
-    public List<Post> queryAllPostAtPagenumByLatestreplytimeInDesc(int startnum, int pagesize);
 
 
-    @Select("SELECT * FROM sys_post ORDER BY publishtime ASC")
-    public List<Post> queryAllPostByPublishtimeInAsc();
-    @Select("SELECT * FROM sys_post ORDER BY publishtime DESC")
-    public List<Post> queryAllPostByPublishtimeInDesc();
-    @Select("SELECT * FROM sys_post ORDER BY publishtime ASC LIMIT #{startnum},#{pagesize}")
-    public List<Post> queryAllPostAtPagenumByPublishtimeInAsc(int startnum, int pagesize);
-    @Select("SELECT * FROM sys_post ORDER BY publishtime DESC LIMIT #{startnum},#{pagesize}")
-    public List<Post> queryAllPostAtPagenumByPublishtimeInDesc(int startnum, int pagesize);
+    @Select("SELECT * FROM sys_post WHERE sectionid=#{sectionid} ORDER BY latestreplytime ASC")
+    public List<Post> queryAllPostByLatestreplytimeInAsc(int sectionid);
+    @Select("SELECT * FROM sys_post WHERE sectionid=#{sectionid} ORDER BY latestreplytime DESC")
+    public List<Post> queryAllPostByLatestreplytimeInDesc(int sectionid);
+    @Select("SELECT * FROM sys_post WHERE sectionid=#{sectionid} ORDER BY latestreplytime ASC LIMIT #{startnum},#{pagesize}")
+    public List<Post> queryAllPostAtPagenumByLatestreplytimeInAsc(int startnum, int pagesize, int sectionid);
+    @Select("SELECT * FROM sys_post WHERE sectionid=#{sectionid} ORDER BY latestreplytime DESC LIMIT #{startnum},#{pagesize}")
+    public List<Post> queryAllPostAtPagenumByLatestreplytimeInDesc(int startnum, int pagesize, int sectionid);
+
+
+    @Select("SELECT * FROM sys_post WHERE sectionid=#{sectionid} ORDER BY publishtime ASC")
+    public List<Post> queryAllPostByPublishtimeInAsc(int sectionid);
+    @Select("SELECT * FROM sys_post WHERE sectionid=#{sectionid} ORDER BY publishtime DESC")
+    public List<Post> queryAllPostByPublishtimeInDesc(int sectionid);
+    @Select("SELECT * FROM sys_post WHERE sectionid=#{sectionid} ORDER BY publishtime ASC LIMIT #{startnum},#{pagesize}")
+    public List<Post> queryAllPostAtPagenumByPublishtimeInAsc(int startnum, int pagesize, int sectionid);
+    @Select("SELECT * FROM sys_post WHERE sectionid=#{sectionid} ORDER BY publishtime DESC LIMIT #{startnum},#{pagesize}")
+    public List<Post> queryAllPostAtPagenumByPublishtimeInDesc(int startnum, int pagesize, int sectionid);
 
 
 

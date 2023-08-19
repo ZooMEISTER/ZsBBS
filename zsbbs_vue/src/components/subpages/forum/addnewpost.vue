@@ -3,8 +3,11 @@
     <div style="display: flex; flex-direction: row; width: 70%; margin: auto;">
         <div class="breadscrumbouterdiv_1">
             <el-breadcrumb class="breadscrumb_1">
-                <el-breadcrumb-item :to="{ path: '/zsbbs/forum' }">
+                <el-breadcrumb-item :to="{ path: '/zsbbs/forum/section' }">
                     <h2>论坛</h2>
+                </el-breadcrumb-item>
+                <el-breadcrumb-item :to="{ path: '/zsbbs/forum/forum_sub', query: { sectionid: this.sectionid}}">
+                    <h2>{{sectionname}}</h2>
                 </el-breadcrumb-item>
                 <el-breadcrumb-item :to="{ path: '/zsbbs/forum/addnewpost' }">
                     <h2>发布新贴</h2>
@@ -77,8 +80,33 @@ export default {
             //},
 
             //图片列表
-            imageList: []
+            imageList: [],
+
+            sectionid: 0,
+            sectionname: "",
         }
+    },
+    created(){
+        this.sectionid = this.$route.query.sectionid
+
+        var querySingleSectionParam = new URLSearchParams
+        var _this = this
+
+        querySingleSectionParam.append("sectionid", this.sectionid)
+
+        //获取该section的信息
+        axios.post('/post/query/singlesection', 
+                querySingleSectionParam
+            )
+            .then(function (response) {
+
+                _this.sectionname = response.data.sectionname
+
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     },
     methods:{
         submitNewPost(){
@@ -92,6 +120,7 @@ export default {
             newPostParam.append("authorid", this.$store.state.s_userid)
             newPostParam.append("replycount", this.replycount)
             newPostParam.append("containimage", this.containimage)
+            newPostParam.append("sectionid", this.sectionid)
             
 
             axios.post('/post/publishnewpost', 
@@ -104,7 +133,13 @@ export default {
 
                         //newPostId位刚插入的帖子的postid
                         _this.submitUpload(newPostId)
-                        _this.$router.push('/zsbbs/forum')
+
+                        _this.$router.push({
+                            path: '/zsbbs/forum/forum_sub',
+                            query: {
+                                sectionid: _this.sectionid
+                            }
+                        })
                     }
                     else{
                         _this.$message.success("发布失败")

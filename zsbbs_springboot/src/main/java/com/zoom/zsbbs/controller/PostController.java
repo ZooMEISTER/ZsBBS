@@ -11,6 +11,7 @@ import com.zoom.zsbbs.service.PostService;
 import com.zoom.zsbbs.service.ReplyService;
 import com.zoom.zsbbs.service.SubReplyService;
 import com.zoom.zsbbs.service.UserService;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +45,8 @@ public class PostController {
                                  @RequestParam("sortby") String sortby,
                                  @RequestParam("pagenum") int pagenum,
                                  @RequestParam("pagesize") int pagesize,
-                                 @RequestParam("userid") int userid
+                                 @RequestParam("userid") int userid,
+                                 @RequestParam("sectionid") int sectionid
     ){
 
         if(useparam == true){
@@ -57,22 +59,22 @@ public class PostController {
                         //排序依据为最后回复时间
                         if(!postdesc){
                             //按升序返回广场上的所有帖子
-                            return new PostShow(postService.getAllPostCount(), postService.queryAllPostByLatestreplytimeInAsc());
+                            return new PostShow(postService.getAllPostCount(sectionid), postService.queryAllPostByLatestreplytimeInAsc(sectionid));
                         }
                         else {
                             //按降序返回广场上的所有帖子
-                            return new PostShow(postService.getAllPostCount(), postService.queryAllPostByLatestreplytimeInDesc());
+                            return new PostShow(postService.getAllPostCount(sectionid), postService.queryAllPostByLatestreplytimeInDesc(sectionid));
                         }
                     }
                     else if (sortby.equals("pt")) {
                         //排序依据为发布时间
                         if(!postdesc){
                             //按升序返回广场上的所有帖子
-                            return new PostShow(postService.getAllPostCount(), postService.queryAllPostByPublishtimeInAsc());
+                            return new PostShow(postService.getAllPostCount(sectionid), postService.queryAllPostByPublishtimeInAsc(sectionid));
                         }
                         else {
                             //按降序返回广场上的所有帖子
-                            return new PostShow(postService.getAllPostCount(), postService.queryAllPostByPublishtimeInDesc());
+                            return new PostShow(postService.getAllPostCount(sectionid), postService.queryAllPostByPublishtimeInDesc(sectionid));
                         }
                     }
 
@@ -83,22 +85,22 @@ public class PostController {
                         //排序依据为最后回复时间
                         if(!postdesc){
                             //按升序返回广场上的对应页码帖子
-                            return new PostShow(postService.getAllPostCount(), postService.queryAllPostAtPagenumByLatestreplytimeInAsc(pagenum, pagesize));
+                            return new PostShow(postService.getAllPostCount(sectionid), postService.queryAllPostAtPagenumByLatestreplytimeInAsc(pagenum, pagesize, sectionid));
                         }
                         else {
                             //按返回查询广场上的对应页码帖子
-                            return new PostShow(postService.getAllPostCount(), postService.queryAllPostAtPagenumByLatestreplytimeInDesc(pagenum, pagesize));
+                            return new PostShow(postService.getAllPostCount(sectionid), postService.queryAllPostAtPagenumByLatestreplytimeInDesc(pagenum, pagesize, sectionid));
                         }
                     }
                     else if (sortby.equals("pt")) {
                         //排序依据为发布时间
                         if(!postdesc){
                             //按升序返回广场上的对应页码帖子
-                            return new PostShow(postService.getAllPostCount(), postService.queryAllPostAtPagenumByPublishtimeInAsc(pagenum, pagesize));
+                            return new PostShow(postService.getAllPostCount(sectionid), postService.queryAllPostAtPagenumByPublishtimeInAsc(pagenum, pagesize, sectionid));
                         }
                         else {
                             //按返回查询广场上的对应页码帖子
-                            return new PostShow(postService.getAllPostCount(), postService.queryAllPostAtPagenumByPublishtimeInDesc(pagenum, pagesize));
+                            return new PostShow(postService.getAllPostCount(sectionid), postService.queryAllPostAtPagenumByPublishtimeInDesc(pagenum, pagesize, sectionid));
                         }
                     }
 
@@ -161,23 +163,24 @@ public class PostController {
             }
             else{
                 //其他条件返回帖子
-                return new PostShow(postService.getAllPostCount(), postService.queryAllPost());
+                return new PostShow(postService.getAllPostCount(sectionid), postService.queryAllPost());
             }
         }
         else {
             //无条件的返回所有帖子
-            return new PostShow(postService.getAllPostCount(), postService.queryAllPost());
+            return new PostShow(postService.getAllPostCount(sectionid), postService.queryAllPost());
         }
-        return new PostShow(postService.getAllPostCount(), postService.queryAllPost());
+        return new PostShow(postService.getAllPostCount(sectionid), postService.queryAllPost());
     }
 
     //查询所有帖子信息 按时间升序
     //http://localhost:8088/post/searchpost
     @RequestMapping(value = "/searchpost", method = RequestMethod.POST)
-    public PostShow queryAllPost(@RequestParam("searchby") String searchby,
+    public PostShow searchPost(@RequestParam("searchby") String searchby,
                                  @RequestParam("pagenum") int pagenum,
-                                 @RequestParam("pagesize") int pagesize){
-        return new PostShow(postService.getSearchPostCount(searchby), postService.searchPost(searchby, pagenum, pagesize));
+                                 @RequestParam("pagesize") int pagesize,
+                                 @RequestParam("sectionid") int sectionid){
+        return new PostShow(postService.getSearchPostCount(searchby, sectionid), postService.searchPost(searchby, sectionid, pagenum, pagesize));
     }
 
 
@@ -412,8 +415,23 @@ public class PostController {
     }
 
     //将目标帖子的访问次数加1
+    //http://localhost:8088/post/addvisitcount
     @RequestMapping(value = "/addvisitcount", method = RequestMethod.POST)
     public int addVisitCountByPostid(@RequestParam("postid") int postid){
         return postService.addVisitCountByPostid(postid);
+    }
+
+    //查询所有的板块
+    //http://localhost:8088/post/query/allsection
+    @RequestMapping(value = "/query/allsection", method = RequestMethod.POST)
+    public List<Section> queryAllSection(){
+        return postService.queryAllSection();
+    }
+
+    //查询某个sectionid指定的section的信息
+    //http://localhost:8088/post/query/singlesection
+    @RequestMapping(value = "/query/singlesection", method = RequestMethod.POST)
+    public Section querySingleSection(@RequestParam("sectionid") int sectionid){
+        return postService.querySingleSection(sectionid);
     }
 }
