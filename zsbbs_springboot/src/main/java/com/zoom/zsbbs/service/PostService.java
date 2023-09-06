@@ -77,4 +77,6 @@ public interface PostService {
     List<Section> queryAllSection();
 
     Section querySingleSection(int sectionid);
+
+    int getSectionPostCountBySectionid(int sectionid);
 }

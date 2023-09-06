@@ -434,4 +434,11 @@ public class PostController {
     public Section querySingleSection(@RequestParam("sectionid") int sectionid){
         return postService.querySingleSection(sectionid);
     }
+
+    //查询某个section下面的帖子数量
+    //http://localhost:8088/post/getsectionpostcount
+    @RequestMapping(value = "/getsectionpostcount", method = RequestMethod.POST)
+    public int getSectionPostCountBySectionid(@RequestParam("sectionid") int sectionid){
+        return postService.getSectionPostCountBySectionid(sectionid);
+    }
 }

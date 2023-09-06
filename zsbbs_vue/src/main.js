@@ -16,6 +16,14 @@ import store from './store/index_vuex'
 import VueCookies from 'vue-cookies'
 import vuescroll from 'vuescroll';
 
+
+//vantui
+import { Popup } from 'vant';
+import { Button } from 'vant';
+
+import 'vant/lib/index.css';
+
+
 import './layout/breadcrumb.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
@@ -34,6 +42,10 @@ app.use(routes)
 // 将 store 实例作为插件安装
 app.use(store)
 app.use(vuescroll)
+
+app.use(Popup);
+app.use(Button);
+
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.mount('#app')
 // app.use(VueCookies)

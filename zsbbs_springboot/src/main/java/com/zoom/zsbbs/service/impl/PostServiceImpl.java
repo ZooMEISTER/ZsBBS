@@ -246,4 +246,9 @@ public class PostServiceImpl implements PostService {
         return sectionMapper.querySingleSection(sectionid);
     }
 
+    @Override
+    public int getSectionPostCountBySectionid(int sectionid) {
+        return sectionMapper.getSectionPostCountBySectionid(sectionid);
+    }
+
 }

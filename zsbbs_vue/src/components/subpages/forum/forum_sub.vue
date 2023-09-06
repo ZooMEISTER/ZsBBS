@@ -162,7 +162,7 @@ export default {
             console.log("add new post")
             //先判断用户有没有登录
             if(this.$store.state.s_userid == -1){
-                this.$message.error('Please Login first')
+                this.$message.error('请先登录')
                 return
             }
             this.$router.push({

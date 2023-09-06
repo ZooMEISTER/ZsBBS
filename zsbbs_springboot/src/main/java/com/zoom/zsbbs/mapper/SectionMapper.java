@@ -22,4 +22,6 @@ public interface SectionMapper extends BaseMapper<Section> {
     @Select("SELECT * FROM sys_section WHERE sectionid=#{sectionid}")
     Section querySingleSection(int sectionid);
 
+    @Select("SELECT count(*) FROM sys_post WHERE sectionid=#{sectionid}")
+    int getSectionPostCountBySectionid(int sectionid);
 }

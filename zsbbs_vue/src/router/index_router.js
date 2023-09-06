@@ -1,8 +1,9 @@
 import {createRouter, createWebHistory} from 'vue-router'
 
+//PC 路由组件
 import Page_MAIN from "../components/subpages/main_sub.vue"
 import Page_Forum from "../components/subpages/forum/forum.vue"
-import Page_Section from "../components/subpages/forum/forum_section.vue"
+import Page_Section from "../components/subpages/forum/section/forum_section.vue"
 import Page_Forum_Sub from "../components/subpages/forum/forum_sub.vue"
 import Page_AddNewPost from "../components/subpages/forum/addnewpost.vue"
 import Page_PostDetail from "../components/subpages/forum/post/postdetail.vue"
@@ -24,6 +25,13 @@ import Page_MYReply_ReplyMe from "../components/subpages/me/me-reply/me_reply_re
 import Page_MYReply_subReplyMe from "../components/subpages/me/me-reply/me_reply_subreplyme.vue"
 
 
+//移动端 路由组件
+import Mobile_Page_MAIN from "../components/mobile/sub_page/mobile_main_sub.vue"
+import Mobile_Page_ZOOMEISTER from "../components/mobile/sub_page/mobile_main_zoomeister.vue"
+
+
+
+
 const routerHistory = createWebHistory()
 
 const router = createRouter({
@@ -32,7 +40,21 @@ const router = createRouter({
       *   在这里和vue2一样写路由配置
      */
     routes: [
-        {path:'/', redirect: '/zsbbs/main'},
+        //PC 路由
+        {path:'/', redirect:() => {
+                const flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+                if(flag){
+                    //跳转到移动端主页
+                    console.log("跳转到移动端主页")
+                    return "/zsbbs/mobile/main"
+                }
+                else{
+                    //跳转到pc端主页
+                    console.log("跳转到pc端主页")
+                    return "/zsbbs/main"
+                }
+            }
+        },
         {path:'/zsbbs/me/logout', redirect: '/zsbbs/main'},
         {path:'/zsbbs/main', component: Page_MAIN},
         {path:'/zsbbs/forum', 
@@ -71,6 +93,12 @@ const router = createRouter({
         // {path:'/zsbbs/me/profile', component: Page_MYProfile},
         // {path:'/zsbbs/me/post', component: Page_MYPost},
         // {path:'/zsbbs/me/reply', component: Page_MYReply},
+
+
+        
+        //移动端 路由
+        {path:'/zsbbs/mobile/main', component: Mobile_Page_MAIN},
+        {path:'/zsbbs/mobile/zoomeister', component: Mobile_Page_ZOOMEISTER},
     ]
 })
 	
