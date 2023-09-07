@@ -251,4 +251,10 @@ public class PostServiceImpl implements PostService {
         return sectionMapper.getSectionPostCountBySectionid(sectionid);
     }
 
+    @Override
+    public List<Post> getSectionPost_Mobile(int sectionid, int pagenum, int pagesize) {
+        int startnum = (pagenum - 1) * pagesize;
+        return postMapper.getSectionPost_Mobile(sectionid, startnum, pagesize);
+    }
+
 }

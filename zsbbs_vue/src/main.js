@@ -20,6 +20,10 @@ import vuescroll from 'vuescroll';
 //vantui
 import { Popup } from 'vant';
 import { Button } from 'vant';
+import { Dialog } from 'vant';
+import { Form, Field, CellGroup } from 'vant';
+import { Uploader } from 'vant';
+import { BackTop } from 'vant';
 
 import 'vant/lib/index.css';
 
@@ -45,6 +49,12 @@ app.use(vuescroll)
 
 app.use(Popup);
 app.use(Button);
+app.use(Dialog);
+app.use(Form);
+app.use(Field);
+app.use(CellGroup);
+app.use(Uploader);
+app.use(BackTop);
 
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.mount('#app')

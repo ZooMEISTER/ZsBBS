@@ -78,4 +78,7 @@ public interface PostMapper extends BaseMapper<Post> {
 
     @Update("UPDATE sys_post SET visitcount=visitcount+1 WHERE postid=#{postid}")
     int addVisitCountByPostid(int postid);
+
+    @Select("SELECT * FROM sys_post WHERE sectionid=#{sectionid} ORDER BY latestreplytime DESC LIMIT #{startnum},#{pagesize}")
+    List<Post> getSectionPost_Mobile(int sectionid, int startnum, int pagesize);
 }

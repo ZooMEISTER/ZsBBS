@@ -441,4 +441,13 @@ public class PostController {
     public int getSectionPostCountBySectionid(@RequestParam("sectionid") int sectionid){
         return postService.getSectionPostCountBySectionid(sectionid);
     }
+
+    //给移动端用 查询某个section下的帖子信息
+    //http://localhost:8088/post/getsectionpost_mobile
+    @RequestMapping(value = "/getsectionpost_mobile", method = RequestMethod.POST)
+    public List<Post> getSectionPostBySectionid_Mobile(@RequestParam("sectionid") int sectionid,
+                                                       @RequestParam("pagenum") int pagenum,
+                                                       @RequestParam("pagesize") int pagesize){
+        return postService.getSectionPost_Mobile(sectionid, pagenum, pagesize);
+    }
 }

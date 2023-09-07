@@ -1,63 +1,74 @@
 <template>
-    <div style="height: 50px;"/>
-    <el-card style="width: 600px; margin: auto;">
-        <template #header>
-            <div>
-                <h1>注册</h1>
-            </div>
-        </template>
-        <div>
-            <div style="height:20px;"/>
-            <el-form :model="form" label-width="120px" style="width:500px;margin:auto">
-                <el-form-item label="头像 ">
-                    <!-- <el-image style="width: 150px; height: 150px" :src="avatar" :fit="fit" /> -->
-                    <el-upload
-                        class="avatar-uploader"
-                        action=""
-                        :auto-upload="false"
-                        :show-file-list="false"
+    <div style="height: 10px;"></div>
+    <text style="font-size: 2em;">注册</text>
+    <div style="height: 10px;"></div>
 
-                        :on-change="handleChange"
-                        >
-                        <img v-if="avatar" :src="avatar" class="avatar" />
-                        <img v-else src="../../../assets/defaultavatar.png" class="avatar"/>
-                    </el-upload>
-                </el-form-item>
-                <el-form-item label="用户名 ">
-                    <el-input v-model="username" placeholder="请输入用户名"/>
-                </el-form-item>
-                <el-form-item label="密码 ">
-                    <el-input v-model="password" placeholder="请输入密码"/>
-                </el-form-item>
-                <el-form-item label="确认密码 ">
-                    <el-input v-model="password2" placeholder="确认密码"/>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="loginMethod">注册</el-button>
-                    <el-button @click="clearInput">清空</el-button>
-                </el-form-item>
-            </el-form>
-            <div style="height:40px;"/>
+    <!-- 用户注册时的头像 -->
+    <van-uploader 
+        v-model="avatarfile" 
+        :before-read="beforeReadAvatar"
+        :after-read="afterReadAvatar" 
+        :max-count="1"
+        :max-size="400 * 1024" 
+        @oversize="onOversize"
+        preview-size="15rem"
+    />
+
+    <div>
+        <van-cell-group inset>
+            <van-field
+                v-model="username"
+                name="用户名"
+                label="用户名"
+                placeholder="用户名"
+                :rules="[{ required: true, message: '请填写用户名' }]"
+            />
+            <van-field
+                v-model="password"
+                type="password"
+                name="密码"
+                label="密码"
+                placeholder="密码"
+                :rules="[{ required: true, message: '请填写密码' }]"
+            />
+            <van-field
+                v-model="password2"
+                type="password"
+                name="确认密码"
+                label="确认密码"
+                placeholder="确认密码"
+                :rules="[{ required: true, message: '请再次输入密码' }]"
+            />
+        </van-cell-group>
+        <div style="margin: 20px;">
+            <van-button round block type="primary" @click="registerMethod">
+                注册
+            </van-button>
+            <div style="height: 10px;"></div>
+            <van-button round block type="default" @click="clearInput">
+                清空
+            </van-button>
+            <div style="height: 10px;"></div>
+            <van-button round block type="primary" @click="goToLoginMethod" plain>
+                已有帐号 ? &nbsp;&nbsp; 前往登录
+            </van-button>
         </div>
-    </el-card>
+    </div>
 </template>
 
 <script>
-import { Plus } from '@element-plus/icons-vue'
 import axios from 'axios'
-import default_avatar_base64 from "../../../assets/default_avatar.js"
+import default_avatar_base64 from "../../../../assets/default_avatar.js"
 
 export default {
     created(){
         this.avatar = default_avatar_base64
-
-        console.log("this.avatar " + this.avatar)
     },
     data(){
         return{
             userid: -1,
             avatar: "",
-            //avatarfile: "",
+            avatarfile: [],
             usertype: -1,
             username: "",
             password: "",
@@ -91,7 +102,7 @@ export default {
             else return true
         },
         //获取头像数据后再来注册
-        loginMethod(){
+        registerMethod(){
             console.log(this.avatar)
             console.log(this.username)
             console.log(this.password)
@@ -144,7 +155,7 @@ export default {
                         _this.$store.commit('syncStoreToken', {token: response.data.data.token})
                         _this.token = response.data.data.token
                         _this.logInSuccess()
-                        _this.$router.push('/zsbbs/main')
+                        _this.$router.push('/zsbbs/mobile/main')
                     }
                     else if(response.data.code == 10003){
                         //用户已存在
@@ -163,69 +174,46 @@ export default {
             this.password = ""
             this.password2 = ""
         },
-
-        handleChange(file){
-            console.log(file)
-
-            //头像 格式 大小 检查
-            const isJPG = (file.raw.type === 'image/jpeg') || (file.raw.type === 'image/png');
-            const isLt400k = file.raw.size / 1024 <= 400;
-
+        //上传头像前
+        beforeReadAvatar(file){
+            const isJPG = (file.type === 'image/jpeg') || (file.type === 'image/png');
             if (!isJPG) {
                 this.$message.error('上传头像图片只能是 JPG 或 png 格式!');
-                return;
+                this.avatarfile = []
+                return false;
             }
-            if (!isLt400k) {
-                this.$message.error('上传头像图片大小不能超过 400KB!');
-                return;
-            }
-            
+            return true;
+        },
+        //上传头像后
+        afterReadAvatar(file){
+            console.log(file)
+            console.log(this.avatarfile)
+
             //将头像转为base64 并保存到avatar变量中
-            //this.avatarfile = file
             var _this = this
 
             var reader = new FileReader();
-            var blobFile = new Blob([file.raw])
+            var blobFile = new Blob([file.file])
             reader.readAsDataURL(blobFile)
             reader.onload = function () {
                 console.log(this.result)
                 _this.avatar = this.result
             }
-
+        },
+        //头像过大
+        onOversize(){
+            this.$message.error('上传头像图片大小不能超过 400KB!');
+            this.avatarfile = []
         },
 
+        //跳转到登陆页面
+        goToLoginMethod(){
+            this.$router.push("/zsbbs/mobile/me")
+        }
     }
 }
 </script>
 
-
-<style scoped>
-.avatar-uploader .avatar {
-  width: 178px;
-  height: 178px;
-  display: block;
-}
-</style>
-
 <style>
-.avatar-uploader .el-upload {
-  border: 1px dashed var(--el-border-color);
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: var(--el-transition-duration-fast);
-}
 
-.avatar-uploader .el-upload:hover {
-  border-color: var(--el-color-primary);
-}
-
-.el-icon.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 178px;
-  height: 178px;
-  text-align: center;
-}
 </style>

@@ -25,9 +25,17 @@ import Page_MYReply_ReplyMe from "../components/subpages/me/me-reply/me_reply_re
 import Page_MYReply_subReplyMe from "../components/subpages/me/me-reply/me_reply_subreplyme.vue"
 
 
+
 //移动端 路由组件
 import Mobile_Page_MAIN from "../components/mobile/sub_page/mobile_main_sub.vue"
 import Mobile_Page_ZOOMEISTER from "../components/mobile/sub_page/mobile_main_zoomeister.vue"
+
+import Mobile_Page_FORUM from "../components/mobile/sub_page/mobile_main_forum.vue"
+import Mobile_Page_FORUM_SECTION from "../components/mobile/sub_page/forum/section/forum_section.vue"
+import Mobile_Page_FORUM_ALLPOSTS from "../components/mobile/sub_page/forum/post/showallposts.vue"
+
+import Mobile_Page_ME from "../components/mobile/sub_page/mobile_main_me.vue"
+import Mobile_Page_REGISTER from "../components/mobile/sub_page/me/me_register.vue"
 
 
 
@@ -99,6 +107,15 @@ const router = createRouter({
         //移动端 路由
         {path:'/zsbbs/mobile/main', component: Mobile_Page_MAIN},
         {path:'/zsbbs/mobile/zoomeister', component: Mobile_Page_ZOOMEISTER},
+        {path:'/zsbbs/mobile/forum', 
+            component: Mobile_Page_FORUM,
+            children:[
+                {path:'section', component: Mobile_Page_FORUM_SECTION},
+                {path:'showallposts', component: Mobile_Page_FORUM_ALLPOSTS},
+            ]
+        },
+        {path:'/zsbbs/mobile/me', component: Mobile_Page_ME},
+        {path:'/zsbbs/mobile/register', component: Mobile_Page_REGISTER},
     ]
 })
 	
