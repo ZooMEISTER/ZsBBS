@@ -89,7 +89,7 @@ export default {
     position: fixed; 
     top: 0px; 
     left: 0px; 
-    z-index: 100;
+    z-index: 3;
 }
 .MenuButton{
     height: 4em;

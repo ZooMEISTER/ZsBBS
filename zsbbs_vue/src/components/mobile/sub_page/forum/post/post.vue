@@ -3,6 +3,12 @@
     <div  v-if="p_posttype==0">
         <el-card shadow="hover" class="PostCard" @click="GoToSeePostDetail">
             <div class="PostCardInner">
+                <div class="PostCardAuthorAvatarandName">
+                    <el-avatar :size="30" :src="authoravatar" />
+                    <div style="width: 10px;"></div>
+                    <el-text style="font-size: 1em;">{{authorname}}</el-text>
+                </div>
+                <div style="height: 5px;"></div>
                 <el-text class="PostTitle" type="primary">{{title}}</el-text>
                 <div style="height: 5px;"></div>
                 <el-text class="PostContent">{{content}}</el-text>
@@ -10,10 +16,10 @@
                 <div style="height: 10px;"></div>
 
 
-                <el-text class="PostData" type="info">
+                <!-- <el-text class="PostData" type="info">
                     By: {{authorname}}
-                </el-text>
-                <div style="height: 5px;"></div>
+                </el-text> -->
+                <div style="height: 10px;"></div>
                 <el-text class="PostData" type="info">
                     <el-icon><ChatDotSquare /></el-icon>: {{replycount}}
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -115,7 +121,33 @@ export default {
 
         //进入帖子 查看帖子详情
         GoToSeePostDetail(){
-            this.$message.info("查看帖子 postid: " + this.p_postid)
+            //给后端发送一个请求 让该帖子的访问次数加 1 （p_postid）
+            var addVisitCountParam = new URLSearchParams
+
+            addVisitCountParam.append("postid", this.p_postid)
+            var _this = this
+
+            //添加访问次数
+            axios.post('/post/addvisitcount', 
+                addVisitCountParam
+            )
+            .then(function (response) {
+                
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+            
+
+            this.$router.push({
+                path: '/zsbbs/mobile/forum/postdetail', 
+                query: { 
+
+                    postid: this.p_postid
+                    
+                }
+            })
         }
     }
 }
@@ -133,6 +165,10 @@ export default {
     width: 100%;
 
     text-align: left;
+}
+.PostCardAuthorAvatarandName{
+    display: flex;
+    flex-direction: row;
 }
 .PostTitle{
     font-size: 23px;

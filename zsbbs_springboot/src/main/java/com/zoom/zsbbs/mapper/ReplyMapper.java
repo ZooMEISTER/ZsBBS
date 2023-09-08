@@ -49,4 +49,8 @@ public interface ReplyMapper extends BaseMapper<Reply> {
     //返回回复我的回复按页码部分的内容
     @Select("SELECT * FROM sys_reply WHERE replypostauthorid=#{userid} AND replyauthorid!=#{userid} ORDER BY replytime DESC LIMIT #{startnum},#{pagesize}")
     List<Reply> queryReplyMeAtPagenumByUserid(int startnum, int pagesize, int userid);
+
+    //返回帖子对应页码的回复 移动端
+    @Select("SELECT * FROM sys_reply WHERE replypostid=#{postid} ORDER BY replyid ASC LIMIT #{startnum},#{pagesize}")
+    List<Reply> getReplyByPostid_Mobile(int postid, int startnum, int pagesize);
 }

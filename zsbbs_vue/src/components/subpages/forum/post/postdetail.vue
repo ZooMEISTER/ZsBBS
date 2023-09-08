@@ -201,6 +201,7 @@ export default {
             //表示该帖子是否被当前登录的用户收藏
             isPostBookmarked: false,
 
+            //是否显示添加新回复的弹窗 和 新回复的内容
             dialog_addNewReply_v: false,
             newReplyContent: "",
 
@@ -414,7 +415,7 @@ export default {
         },
         //获取帖子的图片数据
         getContainImage(){
-            console.log("img data222")
+            //console.log("img data222")
             if(this.containimage > 0){
                 console.log("containimage " + this.containimage)
                 
@@ -630,7 +631,7 @@ export default {
         },
 
         handleChange(file, fileList) {
-            console.log(file)
+            console.log(fileList)
 
             const isJPG = (file.raw.type === 'image/jpeg') || (file.raw.type === 'image/png');
             const isLt2M = file.size / 1024 / 1024 < 4;
@@ -658,7 +659,7 @@ export default {
         handleRemove(file, fileList) {
             this.imageList = fileList
 
-           this.newReplyContainImage = this.imageList.length
+            this.newReplyContainImage = this.imageList.length
             this.hideUpload = this.newReplyContainImage >= this.limitCount;
         },
         //上传服务器

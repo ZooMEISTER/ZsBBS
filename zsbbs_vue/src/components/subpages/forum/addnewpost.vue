@@ -131,7 +131,7 @@ export default {
                     if(newPostId > 0){
                         _this.$message.success("发布成功")
 
-                        //newPostId位刚插入的帖子的postid
+                        //newPostId为刚插入的帖子的postid
                         _this.submitUpload(newPostId)
 
                         _this.$router.push({

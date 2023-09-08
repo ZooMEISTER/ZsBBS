@@ -2,6 +2,7 @@
     <el-card class="SectionCard_mobile" shadow="hover" @click="seeSection">
         <text class="SectionName_mobile">{{p_sectionname}}</text><br>
         <text class="SectionDescription_mobile">{{p_sectiondscription}}</text><br>
+        <div style="height: 30px;"/>
         <text class="SectionPostCount_mobile" style="width: 100px;">
             贴子数
             :&nbsp;
@@ -74,7 +75,6 @@ export default {
 <style>
 
 .SectionCard_mobile{
-    height: 180px;
     width: 97%;
     margin: auto;
 }
@@ -88,17 +88,12 @@ export default {
 
 }
 .SectionPostCount_mobile{
-    position: relative;
     color: gray;
-
-    bottom: -35px;
 
 }
 .SectionCreateTime_mobile{
-    position: relative;
     color: gray;
 
-    bottom: -35px;;
     width: 100%;
     text-align: right;
 }

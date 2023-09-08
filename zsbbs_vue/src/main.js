@@ -24,6 +24,12 @@ import { Dialog } from 'vant';
 import { Form, Field, CellGroup } from 'vant';
 import { Uploader } from 'vant';
 import { BackTop } from 'vant';
+import { Divider } from 'vant';
+import { Lazyload } from 'vant';
+import { ActionBar, ActionBarIcon, ActionBarButton } from 'vant';
+import { FloatingPanel } from 'vant';
+import { Overlay } from 'vant';
+import { FloatingBubble } from 'vant';
 
 import 'vant/lib/index.css';
 
@@ -33,6 +39,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 //axios.defaults.baseURL = "http://47.97.8.13:8088"
 axios.defaults.baseURL = "http://localhost:8088"
+//axios.defaults.baseURL = "http://192.168.5.13:8088"
 
 const app = createApp(App)
 
@@ -55,6 +62,14 @@ app.use(Field);
 app.use(CellGroup);
 app.use(Uploader);
 app.use(BackTop);
+app.use(Divider);
+app.use(Lazyload);
+app.use(ActionBar);
+app.use(ActionBarIcon);
+app.use(ActionBarButton);
+app.use(FloatingPanel);
+app.use(Overlay);
+app.use(FloatingBubble);
 
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.mount('#app')

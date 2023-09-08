@@ -82,7 +82,6 @@ export default {
     },
     methods:{
         getSubReply(){
-            console.log("get all sub reply------------")
             var querysubReplyParam = new URLSearchParams
 
             querysubReplyParam.append("pagenum", this.currentPage)

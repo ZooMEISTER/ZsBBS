@@ -79,4 +79,10 @@ public class ReplyServiceImpl implements ReplyService {
         replyMapper.insert(reply);
         return reply.getReplyid();
     }
+
+    @Override
+    public List<Reply> getReplyByPostid_Mobile(int postid, int pagenum, int pagesize) {
+        int startnum = (pagenum - 1) * pagesize;
+        return replyMapper.getReplyByPostid_Mobile(postid, startnum, pagesize);
+    }
 }

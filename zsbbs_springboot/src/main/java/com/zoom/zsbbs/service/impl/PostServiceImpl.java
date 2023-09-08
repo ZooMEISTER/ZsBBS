@@ -256,5 +256,4 @@ public class PostServiceImpl implements PostService {
         int startnum = (pagenum - 1) * pagesize;
         return postMapper.getSectionPost_Mobile(sectionid, startnum, pagesize);
     }
-
 }

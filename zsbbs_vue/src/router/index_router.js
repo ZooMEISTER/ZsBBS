@@ -33,6 +33,7 @@ import Mobile_Page_ZOOMEISTER from "../components/mobile/sub_page/mobile_main_zo
 import Mobile_Page_FORUM from "../components/mobile/sub_page/mobile_main_forum.vue"
 import Mobile_Page_FORUM_SECTION from "../components/mobile/sub_page/forum/section/forum_section.vue"
 import Mobile_Page_FORUM_ALLPOSTS from "../components/mobile/sub_page/forum/post/showallposts.vue"
+import Mobile_Page_FORUM_POSTDETAIL from "../components/mobile/sub_page/forum/post/postdetail.vue"
 
 import Mobile_Page_ME from "../components/mobile/sub_page/mobile_main_me.vue"
 import Mobile_Page_REGISTER from "../components/mobile/sub_page/me/me_register.vue"
@@ -112,6 +113,7 @@ const router = createRouter({
             children:[
                 {path:'section', component: Mobile_Page_FORUM_SECTION},
                 {path:'showallposts', component: Mobile_Page_FORUM_ALLPOSTS},
+                {path:'postdetail', component: Mobile_Page_FORUM_POSTDETAIL},
             ]
         },
         {path:'/zsbbs/mobile/me', component: Mobile_Page_ME},

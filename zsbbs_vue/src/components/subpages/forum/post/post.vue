@@ -295,7 +295,7 @@ export default {
             addVisitCountParam.append("postid", this.p_postid)
             var _this = this
 
-            //更改用户头像请求
+            //添加访问次数
             axios.post('/post/addvisitcount', 
                 addVisitCountParam
             )

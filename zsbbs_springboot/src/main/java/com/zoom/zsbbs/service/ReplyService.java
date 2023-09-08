@@ -34,4 +34,6 @@ public interface ReplyService {
     int getReplyMeCountByUserid(int userid);
 
     List<Reply> queryReplyMeAtPagenumByUserid(int pagenum, int pagesize, int userid);
+
+    List<Reply> getReplyByPostid_Mobile(int postid, int pagenum, int pagesize);
 }

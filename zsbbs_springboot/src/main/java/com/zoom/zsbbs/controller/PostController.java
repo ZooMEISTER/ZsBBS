@@ -450,4 +450,13 @@ public class PostController {
                                                        @RequestParam("pagesize") int pagesize){
         return postService.getSectionPost_Mobile(sectionid, pagenum, pagesize);
     }
+
+    //给移动端用 查询某个帖子的所有回复
+    //http://localhost:8088/post/getreplybypostid_mobile
+    @RequestMapping(value = "/getreplybypostid_mobile", method = RequestMethod.POST)
+    public List<Reply> getReplyByPostid_Mobile(@RequestParam("postid") int postid,
+                                               @RequestParam("pagenum") int pagenum,
+                                               @RequestParam("pagesize") int pagesize){
+        return replyService.getReplyByPostid_Mobile(postid, pagenum, pagesize);
+    }
 }

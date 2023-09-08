@@ -81,4 +81,5 @@ public interface PostService {
     int getSectionPostCountBySectionid(int sectionid);
 
     List<Post> getSectionPost_Mobile(int sectionid, int pagenum, int pagesize);
+
 }

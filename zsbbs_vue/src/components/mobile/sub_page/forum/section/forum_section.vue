@@ -5,7 +5,6 @@
 
     <div class="OuterSectionDiv">
         <Comp_Mobile_SingleSection
-            class="SectionCard"
 
             v-for="(ssection, index) in allSectionList"
             :index="index"
@@ -62,17 +61,13 @@ export default {
 
 <style>
 .Section_Page_Title{
-    font-size: 2em;
+    font-size: 1.5em;
     color: rgb(22, 172, 231);
 }
 .OuterSectionDiv{
     display: flex;
     flex-direction: column;
 
-    width: 100%;
-    height: 100%;
-}
-.SectionCard{
     width: 100%;
 }
 </style>
